@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Whatbot v1.7 完整操作手册 — 中文</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a1414;--panel:#0d1818;--card:#132020;--card2:#0d1a1a;--border:#2a4a4a80;--teal:#5ecfcf;--green:#40d080;--orange:#f09040;--purple:#a06cff;--red:#f06060;--blue:#4285f4;--white:#e8f0f0;--gray:#8aa0a0;--muted:#4a6060;--radius:14px;--radius-lg:22px;--sidebar:292px}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:"Noto Sans SC",Inter,system-ui,sans-serif;background:var(--bg);color:var(--white);line-height:1.75;overflow-x:hidden}
+a{color:var(--teal);text-decoration:none}
+.layout{display:flex;min-height:100vh}
+.sidebar{position:fixed;inset:0 auto 0 0;width:var(--sidebar);background:var(--panel);border-right:1px solid var(--border);padding:24px 0;overflow:auto;z-index:20}
+.main{margin-left:var(--sidebar);width:calc(100% - var(--sidebar))}
+.logo{display:flex;align-items:center;gap:10px;padding:0 20px 22px;margin-bottom:14px;border-bottom:1px solid var(--border);font-weight:800}
+.logo-mark{width:34px;height:34px;border-radius:8px;background:#1e2d2d;display:grid;place-items:center;color:var(--teal);font:800 1.35rem Inter}
+.nav-label{padding:12px 20px 6px;color:var(--muted);font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;font-weight:800}
+.nav{list-style:none}
+.nav a{display:flex;gap:11px;align-items:center;padding:9px 20px;color:var(--gray);font-size:.82rem;border-left:3px solid transparent;transition:.2s}
+.nav a:hover,.nav a.active{color:var(--teal);background:rgba(94,207,207,.06);border-left-color:var(--teal)}
+.num{width:25px;height:25px;border-radius:7px;background:rgba(94,207,207,.09);display:grid;place-items:center;font:.72rem Inter;font-weight:800;flex:0 0 auto}
+.cta{padding:18px 20px;margin-top:10px;border-top:1px solid var(--border)}
+.cta a{display:block;text-align:center;background:linear-gradient(135deg,var(--teal),#3a9a9a);color:#081313;border-radius:10px;padding:11px;font-size:.84rem;font-weight:800}
+.hero{padding:96px 52px 42px;border-bottom:1px solid var(--border);background:radial-gradient(70% 80% at 50% 0%,#173030 0%,transparent 62%),linear-gradient(180deg,#0d1a1a 0%,var(--bg) 100%)}
+.eyebrow{display:inline-flex;gap:8px;align-items:center;color:var(--teal);font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px}
+.dot{width:8px;height:8px;border-radius:999px;background:var(--green)}
+h1{font-size:2.55rem;line-height:1.16;letter-spacing:-.02em;margin-bottom:14px}
+.hl{background:linear-gradient(135deg,var(--teal),var(--green));background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{max-width:880px;color:var(--gray);font-size:1.06rem;margin-bottom:24px}
+.meta{display:flex;gap:12px;flex-wrap:wrap}
+.pill{padding:7px 12px;border:1px solid var(--border);border-radius:999px;color:var(--gray);font-size:.78rem;background:rgba(19,32,32,.65)}
+.section{padding:54px 52px;border-bottom:1px solid var(--border)}
+.section-head{display:flex;gap:18px;align-items:flex-start;margin-bottom:26px}
+.badge{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;background:rgba(94,207,207,.12);color:var(--teal);font:900 1.05rem Inter;flex:0 0 auto}
+h2{font-size:1.65rem;line-height:1.28;margin-bottom:4px}
+.section-head p{color:var(--gray);font-size:.92rem;max-width:780px}
+.tag-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.tag{font-size:.72rem;font-weight:800;padding:4px 10px;border-radius:7px;border:1px solid rgba(94,207,207,.2);background:rgba(94,207,207,.08);color:var(--teal)}
+.tag.mcp{border-color:rgba(240,144,64,.22);background:rgba(240,144,64,.08);color:var(--orange)}
+.tag.skill{border-color:rgba(160,108,255,.22);background:rgba(160,108,255,.08);color:var(--purple)}
+.tag.plugin{border-color:rgba(64,208,128,.22);background:rgba(64,208,128,.08);color:var(--green)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:18px 0 24px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
+.card strong{display:block;margin-bottom:4px}
+.card span,.card p{font-size:.8rem;color:var(--gray)}
+.flow{display:flex;gap:6px;align-items:center;flex-wrap:wrap;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px;margin:18px 0 24px}
+.node{padding:9px 13px;border-radius:10px;font-size:.76rem;font-weight:800;background:rgba(94,207,207,.1);color:var(--teal);border:1px solid rgba(94,207,207,.2)}
+.node.out{background:rgba(64,208,128,.1);color:var(--green);border-color:rgba(64,208,128,.2)}
+.node.mcp{background:rgba(240,144,64,.1);color:var(--orange);border-color:rgba(240,144,64,.2)}
+.arrow{color:var(--muted);font-weight:900}
+.prompt{border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;background:var(--card2);margin:16px 0 22px}
+.prompt-head{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:13px 18px;background:var(--card);border-bottom:1px solid var(--border);font-size:.78rem;font-weight:900;color:var(--teal)}
+.copy{border:1px solid var(--border);border-radius:7px;background:transparent;color:var(--gray);font:700 .72rem Inter;padding:6px 12px;cursor:pointer}
+.copy:hover{color:var(--teal);border-color:var(--teal)}
+.prompt pre{font:500 .82rem/1.75 "JetBrains Mono","Noto Sans SC",monospace;white-space:pre-wrap;padding:18px;color:var(--white)}
+.placeholder{color:var(--orange);font-style:italic}
+.tip{border:1px solid rgba(160,108,255,.18);background:rgba(160,108,255,.06);border-radius:var(--radius);padding:14px 16px;color:var(--gray);font-size:.84rem;margin:14px 0 22px}
+.tip strong{color:var(--white)}
+.deliverables{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:18px}
+.deliverable{border:1px solid var(--border);border-radius:var(--radius);background:var(--card);padding:14px 15px;font-size:.82rem}
+.deliverable strong{display:block;margin-bottom:2px}
+.deliverable span{color:var(--gray);font-size:.74rem}
+.mobile{display:none;position:fixed;right:18px;bottom:18px;z-index:40;width:52px;height:52px;border:0;border-radius:999px;background:var(--teal);color:#081313;font-size:1.4rem}
+.topnav{position:fixed;top:0;left:var(--sidebar);right:0;z-index:30;display:flex;align-items:center;justify-content:flex-end;gap:16px;padding:10px 24px;background:rgba(10,20,20,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.topnav a{font-size:.78rem;font-weight:600;color:var(--gray);transition:color .2s}
+.topnav a:hover{color:var(--teal)}
+.lang-switch{display:flex;align-items:center;gap:2px;padding:3px;border-radius:8px;border:1px solid var(--border);background:rgba(19,32,32,.45)}
+.lang-switch a{padding:5px 11px;border-radius:6px;font-size:.75rem;font-weight:600;color:var(--gray);line-height:1;transition:all .2s}
+.lang-switch a:hover{color:var(--teal)}
+.lang-switch a.active{background:var(--teal);color:#081313}
+@media(max-width:1050px){.sidebar{display:none}.main{margin-left:0;width:100%}.mobile{display:block}.topnav{left:0;padding-right:70px}.section,.hero{padding-left:26px;padding-right:26px}.grid{grid-template-columns:1fr 1fr}}
+@media(max-width:720px){h1{font-size:2rem}.grid{grid-template-columns:1fr}.section-head{flex-direction:column}}
+</style>
+</head>
+<body>
+<button class="mobile" onclick="document.querySelector('.sidebar').style.display='block'">≡</button>
+<div class="layout">
+<aside class="sidebar">
+  <div class="logo"><span class="logo-mark">W</span> Whatbot 手册</div>
+  <div class="nav-label">完整流程</div>
+  <ul class="nav" id="nav">
+    <li><a href="#setup" class="active"><span class="num">0</span> 设置与上下文</a></li>
+    <li><a href="#profiles"><span class="num">1</span> Agent Profiles</a></li>
+    <li><a href="#venture"><span class="num">2</span> Venture Builder</a></li>
+    <li><a href="#consult"><span class="num">3</span> 多智能体咨询</a></li>
+    <li><a href="#finance"><span class="num">4</span> 财务与量化</a></li>
+    <li><a href="#marketing"><span class="num">5</span> 营销引擎</a></li>
+    <li><a href="#studio"><span class="num">6</span> QUEST Studio</a></li>
+    <li><a href="#automation"><span class="num">7</span> 工具、MCP 与自动化</a></li>
+    <li><a href="#delivery"><span class="num">8</span> 交付与迭代</a></li>
+  </ul>
+  <div class="nav-label">语言</div>
+  <ul class="nav">
+    <li><a href="playbook.html"><span class="num">EN</span> English</a></li>
+    <li><a href="playbook-th.html"><span class="num">TH</span> ภาษาไทย</a></li>
+    <li><a href="playbook-zh.html"><span class="num">ZH</span> 中文</a></li>
+  </ul>
+  <div class="nav-label">其他手册</div>
+  <ul class="nav">
+    <li><a href="playbook-cfa.html"><span class="num">FA</span> CFA Analyst</a></li>
+    <li><a href="playbook-marketer.html"><span class="num">MK</span> Marketer</a></li>
+    <li><a href="playbook-designer.html"><span class="num">DS</span> Designer</a></li>
+    <li><a href="index.html"><span class="num">←</span> Landing Page</a></li>
+  </ul>
+  <div class="cta"><a href="https://a.whatnot.quest/" target="_blank">立即试用 Whatbot →</a></div>
+</aside>
+
+<main class="main">
+<nav class="topnav">
+  <a href="index.html">Landing</a>
+  <div class="lang-switch" aria-label="Playbook language">
+    <a href="playbook.html">EN</a>
+    <a href="playbook-th.html">TH</a>
+    <a href="playbook-zh.html" class="active">ZH</a>
+  </div>
+</nav>
+<header class="hero">
+  <div class="eyebrow"><span class="dot"></span> Whatbot A0 Engine v1.7</div>
+  <h1>完整的 <span class="hl">Whatbot 操作手册</span></h1>
+  <p>这份手册以步骤化方式说明如何使用最新版 Whatbot：Agent Profiles、长期记忆、创业管线、Fincept Finance、营销技能、QUEST Studio、浏览器自动化、MCP/A2A、Office 产物以及聊天分支迭代。</p>
+  <div class="meta">
+    <span class="pill">9 个阶段</span><span class="pill">支持 EN / TH / ZH / KO / JA</span><span class="pill">3 条 Venture Pipelines</span><span class="pill">80+ Finance Modules</span><span class="pill">25 Marketing Skills</span><span class="pill">35+ QUEST Studio Doc Types</span>
+  </div>
+</header>
+
+<section class="section" id="setup">
+  <div class="section-head"><div class="badge">0</div><div><h2>设置与长期上下文</h2><p>开始正式工作前，先选择正确的 profile，保存可复用的事实，并确认 workspace、model、skills 与 MCP 配置。</p></div></div>
+  <div class="tag-row"><span class="tag plugin">Memory</span><span class="tag plugin">Skills</span><span class="tag mcp">MCP/A2A Settings</span><span class="tag plugin">Model Configuration</span></div>
+  <div class="grid">
+    <div class="card"><strong>Agent Profile Selector</strong><span>当前 run 完成后切换 profile；UI 会在该 chat 中保存选择。</span></div>
+    <div class="card"><strong>Memory</strong><span>保存公司事实、品牌语气、投资人背景与偏好，供后续对话复用。</span></div>
+    <div class="card"><strong>Skills</strong><span>把项目 skills 固定到 prompt extras，让专业框架在整个 workflow 中持续生效。</span></div>
+  </div>
+  <div class="prompt">
+    <div class="prompt-head">上下文设置 Prompt <button class="copy" onclick="copyPrompt(this)">Copy</button></div>
+    <pre>请把以下内容记为长期 venture context：
+
+公司：<span class="placeholder">[公司名称]</span>
+一句话描述：<span class="placeholder">[产品、客户、解决的问题]</span>
+阶段：<span class="placeholder">[Idea / MVP / Revenue / Growth / Fundraising]</span>
+目标市场：<span class="placeholder">[ICP + 地区]</span>
+商业模式：<span class="placeholder">[SaaS / marketplace / services / licensing / hybrid]</span>
+竞争对手：<span class="placeholder">[3-5 个竞争对手]</span>
+当前指标：<span class="placeholder">[MRR、用户、试点、留存、CAC、runway]</span>
+融资目标：<span class="placeholder">[轮次金额、时间、资金用途]</span>
+首选输出语言：中文。
+
+除非我更新这些信息，否则之后的分析都使用这份上下文。</pre>
+  </div>
+  <div class="tip"><strong>最佳实践：</strong>只把稳定事实写入 memory；假设、实验方向和临时讨论保留在当前 chat context 中。</div>
+</section>
+
+<section class="section" id="profiles">
+  <div class="section-head"><div class="badge">1</div><div><h2>选择合适的 Agent Profile</h2><p>v1.7 将 Whatbot 的业务 profiles 与专业工具结合。先选择 lead agent，再在需要时委派给专家 profile。</p></div></div>
+  <div class="grid">
+    <div class="card"><strong>Venture Builder</strong><span>创意验证、市场研究、竞争分析、融资准备、增长与退出策略。</span></div>
+    <div class="card"><strong>Financial Analyst</strong><span>通过 Fincept Terminal 做 CFA 级估值、组合、衍生品、风险、量化与回测。</span></div>
+    <div class="card"><strong>Marketing Strategist</strong><span>25 个技能覆盖 CRO、文案、SEO、广告、邮件、定价、launch 与增长。</span></div>
+    <div class="card"><strong>Researcher</strong><span>研究、数据分析、引用与结构化报告。</span></div>
+    <div class="card"><strong>Developer</strong><span>软件开发、架构、debug 与代码执行 workflow。</span></div>
+    <div class="card"><strong>Hacker</strong><span>安全审查、渗透测试、风险识别与加固建议。</span></div>
+  </div>
+  <div class="prompt">
+    <div class="prompt-head">Profile 选择 Prompt <button class="copy" onclick="copyPrompt(this)">Copy</button></div>
+    <pre>我想运行完整的 venture-building workflow。
+
+请用 Venture Builder 作为 lead profile。必要时委派：
+- 市场与来源研究给 Researcher
+- 财务建模给 Financial Analyst
+- GTM 与 messaging 给 Marketing Strategist
+- 技术可行性给 Developer
+- 安全与风险检查给 Hacker
+- 文档生成给 QUEST Studio
+
+请保持单一共享上下文，并在切换 agent/profile 能提升质量时提醒我。</pre>
+  </div>
+</section>
+
+<section class="section" id="venture">
+  <div class="section-head"><div class="badge">2</div><div><h2>运行 Venture Builder Pipeline</h2><p>核心 `venture_pipeline` 提供 7 阶段 venture-build 方法，支持语言参数，可生成研究分析、图片 prompts、HTML 输出和下载链接。</p></div></div>
+  <div class="tag-row"><span class="tag">Venture Builder</span><span class="tag skill">venture-build</span><span class="tag plugin">HTML Outputs</span><span class="tag mcp">Search + Images</span></div>
+  <div class="flow"><span class="node">Startup Brief</span><span class="arrow">→</span><span class="node">Market Discovery</span><span class="arrow">→</span><span class="node">Gap Analysis</span><span class="arrow">→</span><span class="node">Value Prop</span><span class="arrow">→</span><span class="node">Risk & Q&A</span><span class="arrow">→</span><span class="node out">HTML Venture Brief</span></div>
+  <div class="grid">
+    <div class="card"><strong>阶段 1-2</strong><span>竞争者、融资、TAM/SAM/SOM、目标客群、痛点、功能 gap 与蓝海机会。</span></div>
+    <div class="card"><strong>阶段 3-5</strong><span>USP、persona、定位语句、SWOT、风险矩阵、可行性评分与投资人 Q&A。</span></div>
+    <div class="card"><strong>阶段 6-7</strong><span>HTML venture brief 与互动 market landscape，包括 2x2 定位和功能对比。</span></div>
+  </div>
+  <div class="prompt">
+    <div class="prompt-head">完整 Venture Build Prompt <button class="copy" onclick="copyPrompt(this)">Copy</button></div>
+    <pre>请用中文运行完整 Venture Builder pipeline。
+
+Venture name: <span class="placeholder">[公司]</span>
+Description: <span class="placeholder">[3-5 句说明产品、目标客户、问题、解决方案]</span>
+Industry: <span class="placeholder">[行业 / vertical]</span>
+Target market: <span class="placeholder">[ICP + 地区]</span>
+Competitors: <span class="placeholder">[竞争对手 1、2、3]</span>
+Team background: <span class="placeholder">[创始人/团队优势]</span>
+
+生成：
+1. 市场与竞争发现
+2. 产品 gap 分析
+3. 价值主张与定位
+4. SWOT、风险矩阵与可行性评分
+5. 投资人和客户 Q&A
+6. HTML venture brief
+7. HTML market landscape
+
+最终回复中请完整保留所有 download links。</pre>
+  </div>
+</section>
+
+<section class="section" id="consult">
+  <div class="section-head"><div class="badge">3</div><div><h2>使用多智能体 Venture Consulting</h2><p>可以把问题路由给单一专家、智能选择 1-3 位分析师，或用 turbo mode 同时运行 5 位专家做 board-level review。</p></div></div>
+  <div class="tag-row"><span class="tag skill">venture-consultant</span><span class="tag">Market Analyst</span><span class="tag">Business Analyst</span><span class="tag">Competitor Analyst</span><span class="tag">Financial Analyst</span><span class="tag">Pitch Consultant</span></div>
+  <div class="grid">
+    <div class="card"><strong>Smart Mode</strong><span>推荐默认模式：选择最相关的 1-3 位专家。</span></div>
+    <div class="card"><strong>Turbo Mode</strong><span>并行运行五位专家，获得全面覆盖。</span></div>
+    <div class="card"><strong>Single-Agent Mode</strong><span>使用 `market_analyst`、`business_analyst`、`competitor_analyst`、`financial_analyst` 或 `pitch_analyst`。</span></div>
+  </div>
+  <div class="prompt">
+    <div class="prompt-head">Turbo Consulting Prompt <button class="copy" onclick="copyPrompt(this)">Copy</button></div>
+    <pre>请用 turbo mode 运行 Venture Consultant review。
+
+Context:
+<span class="placeholder">[公司、产品、traction、商业模式、市场、融资目标]</span>
+
+请五位专家分别分析：
+1. 市场规模、增长与时机
+2. 商业模式与定价
+3. 竞争定位与 moat
+4. 财务预测、unit economics、runway
+5. Pitch narrative、投资人 objections 与融资 readiness
+
+最后给出优先级排序的 30 / 60 / 90 天行动计划。</pre>
+  </div>
+</section>
+
+<section class="section" id="finance">
+  <div class="section-head"><div class="badge">4</div><div><h2>构建财务、估值与量化分析</h2><p>Financial Analyst profile 使用 Fincept Terminal，覆盖 equity valuation、portfolio、derivatives、statements、economics、corporate finance、quant 与 backtesting。</p></div></div>
+  <div class="tag-row"><span class="tag">Financial Analyst</span><span class="tag plugin">Code Execution</span><span class="tag">Fincept Terminal</span><span class="tag mcp">Charts</span></div>
+  <div class="grid">
+    <div class="card"><strong>Startup Finance</strong><span>3-5 年预测、CAC/LTV、payback、burn、runway、break-even、dilution、use of funds。</span></div>
+    <div class="card"><strong>CFA Analytics</strong><span>DCF、DDM、residual income、comps、WACC、M&A、LBO、财报与 earnings quality。</span></div>
+    <div class="card"><strong>Quant & Risk</strong><span>VaR/CVaR、Sharpe/Sortino、drawdown、Monte Carlo、ARIMA、regression、options Greeks、backtests。</span></div>
+  </div>
+  <div class="prompt">
+    <div class="prompt-head">投资级财务模型 Prompt <button class="copy" onclick="copyPrompt(this)">Copy</button></div>
+    <pre>请使用 Financial Analyst profile，或委派给它。
+
+为 <span class="placeholder">[公司]</span> 建立 36 个月财务模型。
+
+Inputs:
+- Current MRR / revenue: <span class="placeholder">[$]</span>
+- Customers / users: <span class="placeholder">[#]</span>
+- Pricing: <span class="placeholder">[$ / plan / ACV]</span>
+- Gross margin: <span class="placeholder">[%]</span>
+- CAC: <span class="placeholder">[$]</span>
+- Monthly burn: <span class="placeholder">[$]</span>
+- Cash on hand: <span class="placeholder">[$]</span>
+- Planned raise: <span class="placeholder">[$]</span>
+
+输出 bear/base/bull scenarios、CAC/LTV、payback、runway、break-even、funding need、valuation range、dilution，以及适合 pitch deck 的 charts。</pre>
+  </div>
+</section>
+
+<section class="section" id="marketing">
+  <div class="section-head"><div class="badge">5</div><div><h2>启动 Marketing Engine</h2><p>Marketing Strategist profile 包含 25 个增长技能。需要完整框架时，加载对应 skill。</p></div></div>
+  <div class="tag-row"><span class="tag">Marketing Strategist</span><span class="tag skill">25 Skills</span><span class="tag">70+ Psychology Models</span><span class="tag mcp">Research + Visuals</span></div>
+  <div class="grid">
+    <div class="card"><strong>CRO</strong><span>page-cro、signup-flow-cro、onboarding-cro、form-cro、popup-cro、paywall-upgrade-cro。</span></div>
+    <div class="card"><strong>Content & SEO</strong><span>copywriting、copy-editing、email-sequence、social-content、content-strategy、seo-audit、programmatic-seo、schema-markup。</span></div>
+    <div class="card"><strong>Growth</strong><span>paid-ads、launch-strategy、analytics-tracking、ab-test-setup、free-tool-strategy、referral-program、pricing-strategy。</span></div>
+  </div>
+  <div class="prompt">
+    <div class="prompt-head">完整 GTM Engine Prompt <button class="copy" onclick="copyPrompt(this)">Copy</button></div>
+    <pre>请作为 Marketing Strategist 构建完整 GTM engine。
+
+Product: <span class="placeholder">[产品]</span>
+ICP: <span class="placeholder">[买家、用户、细分市场]</span>
+Stage: <span class="placeholder">[Prelaunch / launched / scaling]</span>
+Budget: <span class="placeholder">[$]</span>
+Timeline: <span class="placeholder">[周/月]</span>
+Primary conversion goal: <span class="placeholder">[Demo / trial / purchase / waitlist]</span>
+
+覆盖：
+1. Positioning 与 messaging
+2. Landing page CRO 与 copy
+3. Channel prioritization
+4. SEO 与 content plan
+5. Paid/social plan
+6. 7 封 lifecycle email sequence
+7. Analytics 与 A/B test plan
+8. 前 90 天执行日历</pre>
+  </div>
+</section>
+
+<section class="section" id="studio">
+  <div class="section-head"><div class="badge">6</div><div><h2>用 QUEST Studio 创建商业文档</h2><p>QUEST Studio 是新的文档引擎：35+ document types、PPTX/PDF export、18 styles、theme wizard、style extraction、slide editing，以及从 draft 到 hideft_max 的 quality tiers。</p></div></div>
+  <div class="tag-row"><span class="tag plugin">QUEST Studio</span><span class="tag mcp">Nano Banana Pro</span><span class="tag">Claude Art Direction</span><span class="tag plugin">Slide Editor</span></div>
+  <div class="grid">
+    <div class="card"><strong>Decks</strong><span>pitch_deck、investor_update、board_deck、sales_deck、wizstory_deck、product_demo、training_deck、social_carousel。</span></div>
+    <div class="card"><strong>PDF Docs</strong><span>one_pager、tearsheet、executive_summary、fact_sheet、proposal、case_study、white_paper、infographic。</span></div>
+    <div class="card"><strong>Specialized Docs</strong><span>equity_research_note、portfolio_review、valuation_memo、growth_audit、campaign_brief、SEO strategy、content calendar。</span></div>
+  </div>
+  <div class="prompt">
+    <div class="prompt-head">Investor Deck Prompt <button class="copy" onclick="copyPrompt(this)">Copy</button></div>
+    <pre>请使用 QUEST Studio `generate_doc`。
+
+Document type: pitch_deck
+Quality: hideft
+Audience: Seed / Series A investors
+Topic:
+<span class="placeholder">[公司概况、产品、traction、市场、商业模式、融资金额、资金用途]</span>
+
+Style direction:
+<span class="placeholder">[品牌颜色、视觉情绪、参考素材、限制条件]</span>
+
+创建 12 页投资人 deck，包含 problem、why now、solution、product、market、traction、business model、GTM、competition、team、financials、ask。保存可编辑文件，并保留 PPTX download link。</pre>
+  </div>
+  <div class="tip"><strong>质量建议：</strong>`draft` 用于快速探索，`standard` 用于常规工作，`hideft` 用于投资人/客户材料，`hideft_max` 用于最终董事会或融资材料。</div>
+</section>
+
+<section class="section" id="automation">
+  <div class="section-head"><div class="badge">7</div><div><h2>使用工具、MCP 与自动化</h2><p>v1.7 包含 plugin platform、external MCP client setup、A0 connector、browser tools、office artifacts、communication integrations 与 code execution。</p></div></div>
+  <div class="tag-row"><span class="tag plugin">Browser</span><span class="tag plugin">Browser Agent</span><span class="tag plugin">Code Execution</span><span class="tag plugin">LibreOffice</span><span class="tag mcp">External MCP</span><span class="tag plugin">WhatsApp / Telegram / Email / LINE / WeChat / Kakao</span></div>
+  <div class="grid">
+    <div class="card"><strong>Browser Work</strong><span>打开网页、检查内容、填表、截图、抓取 tab，并运行浏览器 workflow。</span></div>
+    <div class="card"><strong>MCP/A2A</strong><span>通过 settings 添加 Chrome DevTools、Playwright、n8n、Gmail、SQLite、VSCode 或 remote HTTP MCP servers。</span></div>
+    <div class="card"><strong>Office Artifacts</strong><span>创建 MD、ODT、ODS、ODP、DOCX、XLSX、PPTX，并支持 download 与 canvas actions。</span></div>
+    <div class="card"><strong>Code Execution</strong><span>本地或 SSH 运行 terminal、Python、Node.js，用于分析、prototype 和数据工作。</span></div>
+    <div class="card"><strong>Plugin Management</strong><span>安装、验证、扫描、发现和配置 plugins。</span></div>
+    <div class="card"><strong>Comms Channels</strong><span>配置后可通过 WhatsApp、Telegram、Email、LINE、WeChat、Kakao 操作。</span></div>
+  </div>
+</section>
+
+<section class="section" id="delivery">
+  <div class="section-head"><div class="badge">8</div><div><h2>交付、分支与迭代</h2><p>把第一次运行转成可复用的 venture package，再通过 chat branches 探索不同策略，同时保留主线。</p></div></div>
+  <div class="tag-row"><span class="tag plugin">Chat Branching</span><span class="tag plugin">Chat Compaction</span><span class="tag plugin">Time Travel</span><span class="tag plugin">Document Preview</span><span class="tag plugin">Infection Check</span></div>
+  <div class="deliverables">
+    <div class="deliverable"><strong>Investor Package</strong><span>Pitch deck、one-pager、executive summary、financial model、investor Q&A。</span></div>
+    <div class="deliverable"><strong>Operating Package</strong><span>GTM calendar、landing copy、email sequence、analytics plan、product roadmap。</span></div>
+    <div class="deliverable"><strong>Sales Package</strong><span>Sales deck、case study、battle cards、objection scripts、comparison chart。</span></div>
+    <div class="deliverable"><strong>Governance Package</strong><span>Board deck、investor update、risk review、security checklist、data room outline。</span></div>
+  </div>
+  <div class="prompt">
+    <div class="prompt-head">最终 Package Prompt <button class="copy" onclick="copyPrompt(this)">Copy</button></div>
+    <pre>请把本 chat 的所有成果整理成最终 venture operating package。
+
+包含：
+1. Executive summary
+2. Venture brief
+3. Market and competitive analysis
+4. Financial model summary
+5. GTM strategy
+6. Investor deck checklist
+7. Open risks and assumptions
+8. 30 / 60 / 90 day execution plan
+9. File/download link inventory
+
+然后建议三个有用的 chat branches：
+- conservative financial case
+- aggressive growth case
+- skeptical investor diligence case</pre>
+  </div>
+  <div class="tip"><strong>迭代循环：</strong>用 branches 对比方案，长对话稳定后 compact，用 time travel 检查 workspace diff，并把最终文档保存在 document preview 或 QUEST Studio 中导出。</div>
+</section>
+</main>
+</div>
+<script>
+function copyPrompt(btn){
+  const text=btn.closest('.prompt').querySelector('pre').innerText;
+  navigator.clipboard.writeText(text).then(()=>{const old=btn.textContent;btn.textContent='Copied';setTimeout(()=>btn.textContent=old,1400)});
+}
+const sections=document.querySelectorAll('.section');
+const links=document.querySelectorAll('#nav a');
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+entry.target.id));
+    }
+  });
+},{rootMargin:'-20% 0px -60% 0px'});
+sections.forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>
