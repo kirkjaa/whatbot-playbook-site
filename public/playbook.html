@@ -28,7 +28,7 @@ a{color:var(--teal);text-decoration:none}
 .num{width:25px;height:25px;border-radius:7px;background:rgba(94,207,207,.09);display:grid;place-items:center;font-size:.72rem;font-weight:800;flex:0 0 auto}
 .cta{padding:18px 20px;margin-top:10px;border-top:1px solid var(--border)}
 .cta a{display:block;text-align:center;background:linear-gradient(135deg,var(--teal),#3a9a9a);color:#081313;border-radius:10px;padding:11px;font-size:.84rem;font-weight:800}
-.hero{padding:64px 52px 42px;border-bottom:1px solid var(--border);background:radial-gradient(70% 80% at 50% 0%,#173030 0%,transparent 62%),linear-gradient(180deg,#0d1a1a 0%,var(--bg) 100%)}
+.hero{padding:96px 52px 42px;border-bottom:1px solid var(--border);background:radial-gradient(70% 80% at 50% 0%,#173030 0%,transparent 62%),linear-gradient(180deg,#0d1a1a 0%,var(--bg) 100%)}
 .eyebrow{display:inline-flex;gap:8px;align-items:center;color:var(--teal);font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px}
 .dot{width:8px;height:8px;border-radius:999px;background:var(--green)}
 h1{font-size:2.65rem;line-height:1.12;letter-spacing:-.03em;margin-bottom:14px}
@@ -68,7 +68,14 @@ h2{font-size:1.7rem;line-height:1.2;margin-bottom:4px}
 .deliverable strong{display:block;margin-bottom:2px}
 .deliverable span{color:var(--gray);font-size:.74rem}
 .mobile{display:none;position:fixed;right:18px;bottom:18px;z-index:40;width:52px;height:52px;border:0;border-radius:999px;background:var(--teal);color:#081313;font-size:1.4rem}
-@media(max-width:1050px){.sidebar{display:none}.main{margin-left:0;width:100%}.mobile{display:block}.section,.hero{padding-left:26px;padding-right:26px}.grid{grid-template-columns:1fr 1fr}}
+.topnav{position:fixed;top:0;left:var(--sidebar);right:0;z-index:30;display:flex;align-items:center;justify-content:flex-end;gap:16px;padding:10px 24px;background:rgba(10,20,20,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.topnav a{font-size:.78rem;font-weight:600;color:var(--gray);transition:color .2s}
+.topnav a:hover{color:var(--teal)}
+.lang-switch{display:flex;align-items:center;gap:2px;padding:3px;border-radius:8px;border:1px solid var(--border);background:rgba(19,32,32,.45)}
+.lang-switch a{padding:5px 11px;border-radius:6px;font-size:.75rem;font-weight:600;color:var(--gray);line-height:1;transition:all .2s}
+.lang-switch a:hover{color:var(--teal)}
+.lang-switch a.active{background:var(--teal);color:#081313}
+@media(max-width:1050px){.sidebar{display:none}.main{margin-left:0;width:100%}.mobile{display:block}.topnav{left:0;padding-right:70px}.section,.hero{padding-left:26px;padding-right:26px}.grid{grid-template-columns:1fr 1fr}}
 @media(max-width:720px){h1{font-size:2.05rem}.grid{grid-template-columns:1fr}.section-head{flex-direction:column}}
 </style>
 </head>
@@ -105,6 +112,13 @@ h2{font-size:1.7rem;line-height:1.2;margin-bottom:4px}
 </aside>
 
 <main class="main">
+<nav class="topnav">
+  <a href="index.html">Landing</a>
+  <div class="lang-switch" aria-label="Playbook language">
+    <a href="playbook.html" class="active">EN</a>
+    <a href="playbook-th.html">TH</a>
+  </div>
+</nav>
 <header class="hero">
   <div class="eyebrow"><span class="dot"></span> Whatbot A0 Engine v1.7</div>
   <h1>The Complete <span class="hl">Whatbot Operating Playbook</span></h1>

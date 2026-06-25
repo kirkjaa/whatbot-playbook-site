@@ -31,6 +31,11 @@ nav.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.4)}
 .nav-links{display:flex;gap:28px;align-items:center}
 .nav-links a{color:var(--gray);font-size:.875rem;font-weight:500;transition:color .2s}
 .nav-links a:hover{color:var(--teal)}
+.lang-switch{display:flex;align-items:center;gap:2px;padding:3px;border-radius:8px;border:1px solid var(--border);background:rgba(19,32,32,.45)}
+.lang-switch a{padding:5px 11px;border-radius:6px;font-size:.75rem;font-weight:600;color:var(--gray);line-height:1;transition:all .2s}
+.lang-switch a:hover{color:var(--teal)}
+.lang-switch a.active{background:var(--teal);color:#0a1414}
+.mobile-lang{display:flex;gap:10px;margin-top:-8px}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 24px;border-radius:8px;font-weight:600;font-size:.875rem;cursor:pointer;border:none;transition:all .25s}
 .btn-primary{background:linear-gradient(135deg,var(--teal),var(--teal-dim));color:#0a1414}
 .btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 24px var(--teal-glow)}
@@ -279,6 +284,11 @@ footer{padding:40px 0;border-top:1px solid var(--border);background:var(--bg)}
       <a href="#mcp">MCP</a>
       <a href="#verticals">Verticals</a>
       <a href="#metrics">ROI</a>
+      <a href="playbook.html">Playbook</a>
+      <div class="lang-switch" aria-label="Playbook language">
+        <a href="playbook.html" class="active">EN</a>
+        <a href="playbook-th.html">TH</a>
+      </div>
       <a href="#cta" class="btn btn-primary">Request Demo</a>
     </div>
     <button class="hamburger" onclick="toggleMobile()" aria-label="Menu">
@@ -294,6 +304,13 @@ footer{padding:40px 0;border-top:1px solid var(--border);background:var(--bg)}
   <a href="#mcp" onclick="toggleMobile()">MCP</a>
   <a href="#verticals" onclick="toggleMobile()">Verticals</a>
   <a href="#metrics" onclick="toggleMobile()">ROI</a>
+  <a href="playbook.html" onclick="toggleMobile()">Playbook</a>
+  <div class="mobile-lang">
+    <div class="lang-switch" aria-label="Playbook language">
+      <a href="playbook.html" class="active">EN</a>
+      <a href="playbook-th.html">TH</a>
+    </div>
+  </div>
   <a href="#cta" class="btn btn-primary" onclick="toggleMobile()">Request Demo</a>
 </div>
 
@@ -497,7 +514,7 @@ footer{padding:40px 0;border-top:1px solid var(--border);background:var(--bg)}
   <div class="container">
     <div class="section-tag" style="background:rgba(160,108,255,.1);color:var(--accent-purple)">&#129302; Specialist Agents</div>
     <h2 class="section-title reveal">Specialist Profiles, One Platform</h2>
-    <p class="section-subtitle reveal">Whatbot v1.7 combines custom business profiles with core Agent Zero profiles, plugins, skills, and tools that collaborate on complex venture workflows.</p>
+    <p class="section-subtitle reveal">Whatbot v1.7 combines custom business profiles, plugins, skills, and tools that collaborate on complex venture workflows.</p>
     <div class="agents-grid">
       <div class="agent-card reveal">
         <div class="agent-icon">&#127919;</div>
@@ -865,7 +882,6 @@ footer{padding:40px 0;border-top:1px solid var(--border);background:var(--bg)}
 <footer>
   <div class="footer-inner">
     <p>&copy; 2026 Whatbot &mdash; AI-Powered Venture Building Engine</p>
-    <p>Built on Agent Zero Framework</p>
   </div>
 </footer>
 
