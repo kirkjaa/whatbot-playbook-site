@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Whatbot CFA Playbook — Financial Analyst Journey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a1414;--bg-card:#132020;--bg-card-hover:#1a2e2e;--bg-prompt:#0d1a1a;--border:#2a4a4a80;--border-active:#5ecfcf40;--teal:#5ecfcf;--teal-dim:#3a9a9a;--teal-glow:#5ecfcf20;--white:#e8f0f0;--gray:#8aa0a0;--dark-gray:#4a6060;--orange:#f09040;--purple:#a06cff;--green:#40d080;--red:#f06060;--yellow:#f0c040;--blue:#4285f4;--gold:#d4a843;--radius:12px;--radius-lg:20px;--sidebar-w:280px}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--white);line-height:1.6;overflow-x:hidden}
+a{color:var(--teal);text-decoration:none}
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sidebar-w);background:#0d1818;border-right:1px solid var(--border);padding:24px 0;overflow-y:auto;z-index:50}
+.main{margin-left:var(--sidebar-w);flex:1;min-width:0}
+.sidebar-logo{display:flex;align-items:center;gap:10px;padding:0 20px 24px;font-weight:700;font-size:1.1rem;color:var(--white);border-bottom:1px solid var(--border);margin-bottom:16px}
+.sidebar-logo svg{flex-shrink:0}
+.sidebar-label{padding:4px 20px;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--dark-gray);margin-top:16px;margin-bottom:4px}
+.sidebar-nav{list-style:none}
+.sidebar-nav li a{display:flex;align-items:center;gap:12px;padding:9px 20px;font-size:.82rem;font-weight:500;color:var(--gray);transition:all .2s;border-left:3px solid transparent}
+.sidebar-nav li a:hover{color:var(--white);background:rgba(94,207,207,.04)}
+.sidebar-nav li a.active{color:var(--gold);border-left-color:var(--gold);background:rgba(212,168,67,.06);font-weight:600}
+.sidebar-nav .phase-num{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;flex-shrink:0;background:rgba(212,168,67,.08);color:var(--dark-gray);transition:all .2s}
+.sidebar-nav li a.active .phase-num{background:var(--gold);color:#0a1414}
+.sidebar-cta{padding:16px 20px;margin-top:16px;border-top:1px solid var(--border)}
+.sidebar-cta a{display:block;text-align:center;padding:10px;border-radius:8px;font-weight:600;font-size:.82rem;background:linear-gradient(135deg,var(--gold),#b8922e);color:#0a1414;transition:all .2s}
+.page-header{padding:60px 48px 40px;border-bottom:1px solid var(--border);background:linear-gradient(180deg,#141a0d 0%,var(--bg) 100%)}
+.page-header h1{font-size:2.4rem;font-weight:800;line-height:1.2;margin-bottom:12px;letter-spacing:-.02em}
+.page-header h1 .hl{background:linear-gradient(135deg,var(--gold),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.page-header p{font-size:1.05rem;color:var(--gray);max-width:700px;line-height:1.7;margin-bottom:24px}
+.header-meta{display:flex;gap:24px;flex-wrap:wrap}
+.header-meta-item{display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--gray)}
+.header-meta-item .dot{width:8px;height:8px;border-radius:50%}
+.phase{padding:60px 48px;border-bottom:1px solid var(--border)}
+.phase:last-of-type{border-bottom:none}
+.phase-anchor{display:block;position:relative;top:-20px;visibility:hidden}
+.phase-header{display:flex;align-items:flex-start;gap:20px;margin-bottom:32px}
+.phase-badge{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem;flex-shrink:0}
+.phase-title h2{font-size:1.6rem;font-weight:800;line-height:1.2;margin-bottom:4px}
+.phase-title p{font-size:.9rem;color:var(--gray);line-height:1.5}
+.badge-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:6px;font-size:.72rem;font-weight:600}
+.badge-agent{background:rgba(94,207,207,.1);color:var(--teal);border:1px solid rgba(94,207,207,.2)}
+.badge-mcp{background:rgba(240,144,64,.1);color:var(--orange);border:1px solid rgba(240,144,64,.2)}
+.badge-skill{background:rgba(160,108,255,.1);color:var(--purple);border:1px solid rgba(160,108,255,.2)}
+.badge-module{background:rgba(212,168,67,.1);color:var(--gold);border:1px solid rgba(212,168,67,.2)}
+.prompt-card{border-radius:var(--radius-lg);border:1px solid var(--border);overflow:hidden;margin-bottom:24px;transition:border-color .3s}
+.prompt-card:hover{border-color:var(--border-active)}
+.prompt-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:var(--bg-card);border-bottom:1px solid var(--border)}
+.prompt-label{display:flex;align-items:center;gap:8px;font-size:.8rem;font-weight:600;color:var(--gold)}
+.prompt-label .icon{font-size:1rem}
+.copy-btn{padding:6px 14px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--gray);font-size:.72rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
+.copy-btn:hover{border-color:var(--gold);color:var(--gold)}
+.copy-btn.copied{border-color:var(--green);color:var(--green)}
+.prompt-body{padding:20px;background:var(--bg-prompt);font-family:'JetBrains Mono',monospace;font-size:.82rem;line-height:1.8;color:var(--white);white-space:pre-wrap;word-break:break-word}
+.prompt-body .placeholder{color:var(--orange);font-style:italic}
+.output-preview{border-radius:var(--radius-lg);border:1px solid var(--border);overflow:hidden;margin-bottom:24px}
+.output-header{padding:12px 20px;background:var(--bg-card);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.output-dot{width:7px;height:7px;border-radius:50%}
+.output-label{font-size:.75rem;color:var(--gray);margin-left:6px}
+.output-body{padding:20px;background:rgba(13,26,26,.6);font-size:.82rem;line-height:1.7;color:var(--gray)}
+.output-body .success{color:var(--green)}
+.output-body .info{color:var(--teal)}
+.output-body .data{color:var(--orange)}
+.output-body .label{color:var(--white);font-weight:600}
+.tip-box{padding:18px 20px;border-radius:var(--radius);margin-bottom:24px;display:flex;gap:14px;align-items:flex-start}
+.tip-box.pro{background:rgba(212,168,67,.06);border:1px solid rgba(212,168,67,.15)}
+.tip-box.warn{background:rgba(240,144,64,.06);border:1px solid rgba(240,144,64,.15)}
+.tip-box.info{background:rgba(160,108,255,.06);border:1px solid rgba(160,108,255,.15)}
+.tip-icon{font-size:1.2rem;flex-shrink:0;margin-top:2px}
+.tip-content{font-size:.82rem;line-height:1.6}
+.tip-content strong{color:var(--white)}
+.flow-visual{padding:28px;border-radius:var(--radius-lg);background:var(--bg-card);border:1px solid var(--border);margin-bottom:24px;overflow-x:auto}
+.flow-visual h4{font-size:.85rem;font-weight:700;margin-bottom:16px;color:var(--gray);text-transform:uppercase;letter-spacing:.06em}
+.flow-steps{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.flow-node{padding:10px 16px;border-radius:10px;font-size:.78rem;font-weight:600;white-space:nowrap}
+.flow-node.agent{background:rgba(94,207,207,.1);color:var(--teal);border:1px solid rgba(94,207,207,.2)}
+.flow-node.mcp{background:rgba(240,144,64,.1);color:var(--orange);border:1px solid rgba(240,144,64,.2)}
+.flow-node.output{background:rgba(64,208,128,.1);color:var(--green);border:1px solid rgba(64,208,128,.2)}
+.flow-node.user{background:rgba(160,108,255,.1);color:var(--purple);border:1px solid rgba(160,108,255,.2)}
+.flow-arrow{color:var(--dark-gray);font-size:.85rem;font-weight:700;padding:0 2px}
+.deliverables{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:24px}
+.deliverable{padding:14px 16px;border-radius:var(--radius);background:var(--bg-card);border:1px solid var(--border);font-size:.8rem;display:flex;align-items:flex-start;gap:10px}
+.deliverable .d-icon{font-size:1.1rem;flex-shrink:0}
+.deliverable .d-text{line-height:1.4}
+.deliverable .d-text strong{display:block;color:var(--white);font-size:.82rem;margin-bottom:2px}
+.deliverable .d-text span{color:var(--gray);font-size:.72rem}
+.step{margin-bottom:32px}
+.step-label{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.step-num{width:28px;height:28px;border-radius:50%;background:rgba(212,168,67,.1);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0}
+.step-label h3{font-size:1.05rem;font-weight:700}
+.step p{font-size:.88rem;color:var(--gray);margin-bottom:14px;line-height:1.6;max-width:720px}
+.mobile-nav-toggle{display:none;position:fixed;bottom:20px;right:20px;z-index:100;width:52px;height:52px;border-radius:50%;background:var(--gold);color:#0a1414;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,.4)}
+@media(max-width:1024px){.sidebar{display:none}.main{margin-left:0}.phase{padding:40px 24px}.page-header{padding:40px 24px 32px}.mobile-nav-toggle{display:flex;align-items:center;justify-content:center}}
+@media(max-width:768px){.deliverables{grid-template-columns:1fr}.phase-header{flex-direction:column;gap:12px}}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <svg width="32" height="32" viewBox="0 0 100 100"><rect width="100" height="100" rx="12" fill="#1e2d2d"/><text x="50" y="68" text-anchor="middle" font-family="Inter,sans-serif" font-size="56" font-weight="800" fill="#d4a843">W</text></svg>
+    CFA Playbook
+  </div>
+  <div class="sidebar-label">The Journey</div>
+  <ul class="sidebar-nav" id="sidebarNav">
+    <li><a href="#intro" class="active"><span class="phase-num">0</span> Setup</a></li>
+    <li><a href="#phase1"><span class="phase-num">1</span> Equity Valuation</a></li>
+    <li><a href="#phase2"><span class="phase-num">2</span> Portfolio Mgmt</a></li>
+    <li><a href="#phase3"><span class="phase-num">3</span> Derivatives</a></li>
+    <li><a href="#phase4"><span class="phase-num">4</span> Risk Analysis</a></li>
+    <li><a href="#phase5"><span class="phase-num">5</span> Corporate Finance</a></li>
+    <li><a href="#phase6"><span class="phase-num">6</span> Quant Methods</a></li>
+    <li><a href="#phase7"><span class="phase-num">7</span> Report &amp; Deck</a></li>
+  </ul>
+  <div class="sidebar-label">Other Playbooks</div>
+  <ul class="sidebar-nav">
+    <li><a href="playbook.html"><span class="phase-num" style="font-size:.65rem">&#128640;</span> Venture Builder</a></li>
+    <li><a href="playbook-marketer.html"><span class="phase-num" style="font-size:.65rem">&#128226;</span> Marketer</a></li>
+    <li><a href="playbook-designer.html"><span class="phase-num" style="font-size:.65rem">&#127912;</span> Designer</a></li>
+    <li><a href="index.html"><span class="phase-num" style="font-size:.65rem">&#8592;</span> Landing Page</a></li>
+  </ul>
+  <div class="sidebar-cta"><a href="https://a.whatnot.quest/" target="_blank">Try Whatbot Live &rarr;</a></div>
+</aside>
+
+<div class="main">
+
+<div class="page-header">
+  <h1>The CFA <span class="hl">Analyst Playbook</span></h1>
+  <p>Master institutional-grade financial analysis with Whatbot's 80+ Fincept Terminal modules. From equity valuation to Monte Carlo stress tests &mdash; every prompt a CFA needs.</p>
+  <div class="header-meta">
+    <div class="header-meta-item"><span class="dot" style="background:var(--gold)"></span> 7 Domains</div>
+    <div class="header-meta-item"><span class="dot" style="background:var(--orange)"></span> 25+ Copy-Paste Prompts</div>
+    <div class="header-meta-item"><span class="dot" style="background:var(--green)"></span> 80+ Analytics Modules</div>
+    <div class="header-meta-item"><span class="dot" style="background:var(--teal)"></span> Code Execution + Charts</div>
+  </div>
+</div>
+
+<!-- PHASE 0 -->
+<div class="phase" id="intro"><span class="phase-anchor"></span>
+  <div class="phase-header reveal">
+    <div class="phase-badge" style="background:rgba(212,168,67,.12);color:var(--gold)">0</div>
+    <div class="phase-title"><h2>Setup Your Session</h2><p>Configure the Financial Analyst agent for maximum effectiveness.</p></div>
+  </div>
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">A</div><h3>Select the Financial Analyst Agent</h3></div>
+    <p>Click the <strong>Agent Profile selector</strong> in the sidebar and choose <strong>Financial Analyst</strong>. This activates Fincept Terminal with 80+ analytics modules and sandboxed Python execution.</p>
+  </div>
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">B</div><h3>Set Your Analysis Context</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128173;</span> Context Prompt</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Remember the following for this analysis session:
+
+- Focus company/portfolio: <span class="placeholder">[ticker or company name]</span>
+- Analysis purpose: <span class="placeholder">[investment decision / client report / portfolio review / risk audit]</span>
+- Risk tolerance: <span class="placeholder">[conservative / moderate / aggressive]</span>
+- Benchmark: <span class="placeholder">[S&P 500 / sector ETF / custom]</span>
+- Time horizon: <span class="placeholder">[short-term / 1 year / 5 years]</span>
+- Reporting style: <span class="placeholder">[executive summary / detailed technical / academic]</span>
+
+Generate all charts and show calculations.</div>
+    </div>
+  </div>
+  <div class="tip-box pro reveal">
+    <div class="tip-icon">&#128161;</div>
+    <div class="tip-content"><strong>Code execution:</strong> The Financial Analyst runs real Python code in a sandbox. It will import numpy, pandas, scipy, matplotlib, and other financial libraries to compute actual models &mdash; not just describe them.</div>
+  </div>
+</div>
+
+<!-- PHASE 1: EQUITY VALUATION -->
+<div class="phase" id="phase1"><span class="phase-anchor"></span>
+  <div class="phase-header reveal">
+    <div class="phase-badge" style="background:rgba(212,168,67,.12);color:var(--gold)">1</div>
+    <div class="phase-title"><h2>Equity Valuation</h2><p>DCF, multiples, and blended fair value estimation.</p></div>
+  </div>
+  <div class="badge-row"><span class="badge badge-agent">Financial Analyst</span><span class="badge badge-module">DCF Module</span><span class="badge badge-module">Comparables</span><span class="badge badge-mcp">AntV Charts</span></div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">1</div><h3>3-Stage DCF Valuation</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128200;</span> DCF Prompt</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Run a 3-stage DCF valuation on <span class="placeholder">[TICKER]</span>:
+- Stage 1: 5-year high growth at <span class="placeholder">[X%]</span> revenue CAGR
+- Stage 2: 5-year transition to <span class="placeholder">[X%]</span> growth
+- Stage 3: Terminal growth at <span class="placeholder">[X%]</span>
+- WACC: <span class="placeholder">[X%]</span>
+- Use the last 3 years of actual financials as base
+
+Show the DCF model, sensitivity table (WACC vs terminal growth),
+and implied share price vs current market price.
+Generate a waterfall chart of value components.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">2</div><h3>Multi-Method Blended Valuation</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128178;</span> Blended Valuation</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Value <span class="placeholder">[TICKER]</span> using 5 different methods:
+1. DCF (free cash flow to firm)
+2. P/E multiple (vs sector average)
+3. EV/EBITDA (vs sector average)
+4. Price-to-Sales
+5. Dividend Discount Model
+
+Compare and reconcile the values.
+What is your blended fair value?
+Show a football field chart with all ranges.</div>
+    </div>
+  </div>
+
+  <div class="output-preview reveal">
+    <div class="output-header"><div class="output-dot" style="background:var(--red)"></div><div class="output-dot" style="background:var(--orange)"></div><div class="output-dot" style="background:var(--green)"></div><div class="output-label">Expected Output</div></div>
+    <div class="output-body">
+<span class="label">&#128200; DCF Valuation — MSFT</span>
+
+<span class="success">&#10003;</span> <span class="label">Implied Share Price:</span> <span class="data">$428.50</span> (current: $415.20 — <span class="success">3.2% upside</span>)
+<span class="success">&#10003;</span> <span class="label">Sensitivity Table:</span> WACC 8-10% × Terminal Growth 2-4%
+<span class="success">&#10003;</span> <span class="label">P/E Fair Value:</span> <span class="data">$445</span> | <span class="label">EV/EBITDA:</span> <span class="data">$410</span> | <span class="label">P/S:</span> <span class="data">$398</span>
+<span class="success">&#10003;</span> <span class="label">Blended Fair Value:</span> <span class="data">$422.40</span> (weighted average)
+
+<span class="info">&#128202; Football field chart generated</span>
+<span class="info">&#128202; Sensitivity heatmap generated</span>
+<span class="info">&#128202; DCF waterfall chart generated</span>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">3</div><h3>Residual Income Model (Advanced)</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128176;</span> RIM Prompt</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Calculate intrinsic value using Residual Income Model for <span class="placeholder">[TICKER]</span>.
+Use a <span class="placeholder">[X%]</span> cost of equity and <span class="placeholder">[X%]</span> long-run ROE convergence.
+Show: book value per share, residual income per year, and present value breakdown.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 2: PORTFOLIO MANAGEMENT -->
+<div class="phase" id="phase2"><span class="phase-anchor"></span>
+  <div class="phase-header reveal">
+    <div class="phase-badge" style="background:rgba(66,133,244,.12);color:var(--blue)">2</div>
+    <div class="phase-title"><h2>Portfolio Management</h2><p>Efficient frontier, factor analysis, and risk metrics.</p></div>
+  </div>
+  <div class="badge-row"><span class="badge badge-agent">Financial Analyst</span><span class="badge badge-module">Portfolio Optimizer</span><span class="badge badge-module">Factor Model</span><span class="badge badge-mcp">AntV Charts</span></div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">1</div><h3>Efficient Frontier Analysis</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128202;</span> Portfolio Prompt</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Build an efficient frontier for this portfolio:
+<span class="placeholder">[TICKER1 XX%, TICKER2 XX%, TICKER3 XX%, TICKER4 XX%, TICKER5 XX%]</span>
+
+Use 3 years of daily return data. Show:
+- Current portfolio position on the frontier
+- Minimum variance portfolio weights
+- Maximum Sharpe ratio portfolio weights
+- Plot the frontier with annotated key points
+
+Also calculate: annual return, volatility, Sharpe ratio, Sortino ratio,
+and maximum drawdown for the current allocation.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">2</div><h3>Fama-French Factor Exposure</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128208;</span> Factor Analysis</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Run a factor exposure analysis on my portfolio using the Fama-French 3-factor model:
+<span class="placeholder">[List tickers and weights]</span>
+
+Report: alpha, beta, size factor loading, value factor loading.
+Include R-squared, t-statistics, and p-values.
+Is the alpha statistically significant at 95% confidence?
+
+Plot factor exposure as a radar chart.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">3</div><h3>Rolling Performance Metrics</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128200;</span> Rolling Metrics</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Calculate rolling 30-day Sharpe ratio, Sortino ratio, and maximum drawdown for this portfolio over the last 2 years:
+<span class="placeholder">[List tickers and weights]</span>
+
+Plot all three metrics on the same timeline.
+Highlight periods where Sharpe < 0 and drawdown > 10%.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 3: DERIVATIVES -->
+<div class="phase" id="phase3"><span class="phase-anchor"></span>
+  <div class="phase-header reveal">
+    <div class="phase-badge" style="background:rgba(160,108,255,.12);color:var(--purple)">3</div>
+    <div class="phase-title"><h2>Derivatives &amp; Options</h2><p>Black-Scholes, binomial trees, Greeks, and strategy payoff diagrams.</p></div>
+  </div>
+  <div class="badge-row"><span class="badge badge-agent">Financial Analyst</span><span class="badge badge-module">Black-Scholes</span><span class="badge badge-module">Binomial Tree</span><span class="badge badge-mcp">AntV Charts</span></div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">1</div><h3>Option Pricing &amp; Greeks</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128202;</span> Black-Scholes</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Price a European call option using Black-Scholes:
+- Underlying: $<span class="placeholder">[price]</span>
+- Strike: $<span class="placeholder">[strike]</span>
+- Risk-free rate: <span class="placeholder">[X%]</span>
+- Time to expiry: <span class="placeholder">[X days]</span>
+- Implied volatility: <span class="placeholder">[X%]</span>
+
+Calculate all Greeks (Delta, Gamma, Vega, Theta, Rho).
+Plot the P&L diagram at expiry.
+Show how each Greek changes as spot price moves +/- 20%.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">2</div><h3>Options Strategy Analysis</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128176;</span> Strategy Payoff</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Create an options payoff diagram for a <span class="placeholder">[long strangle / iron condor / bull call spread / protective put]</span>:
+<span class="placeholder">[Describe legs: buy/sell, call/put, strikes, premiums]</span>
+Stock currently at S=<span class="placeholder">[price]</span>.
+
+Mark: breakeven points, max profit, max loss, profit zones.
+Calculate the probability of profit using implied vol.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">3</div><h3>Binomial Tree Pricing</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#127795;</span> Binomial Tree</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Build a binomial options pricing tree with 5 steps:
+- American call and put
+- S=<span class="placeholder">[price]</span>, K=<span class="placeholder">[strike]</span>, r=<span class="placeholder">[X%]</span>, T=<span class="placeholder">[X year]</span>, sigma=<span class="placeholder">[X%]</span>
+
+Show the full tree with stock price and option value at each node.
+Highlight early exercise nodes for the American put.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 4: RISK ANALYSIS -->
+<div class="phase" id="phase4"><span class="phase-anchor"></span>
+  <div class="phase-header reveal">
+    <div class="phase-badge" style="background:rgba(240,96,96,.12);color:var(--red)">4</div>
+    <div class="phase-title"><h2>Risk Analysis</h2><p>VaR, Monte Carlo stress testing, and credit risk.</p></div>
+  </div>
+  <div class="badge-row"><span class="badge badge-agent">Financial Analyst</span><span class="badge badge-module">VaR Engine</span><span class="badge badge-module">Monte Carlo</span><span class="badge badge-mcp">AntV Charts</span></div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">1</div><h3>Value-at-Risk (3 Methods)</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#9888;&#65039;</span> VaR Prompt</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Calculate 1-day 95% and 99% VaR for this portfolio using three methods:
+<span class="placeholder">[List tickers and weights]</span>
+
+1. Historical simulation (252 trading days)
+2. Parametric (variance-covariance)
+3. Monte Carlo (10,000 simulations)
+
+Compare the results and explain the differences.
+Show the return distribution histogram with VaR lines marked.
+Which method is most conservative? Why?</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">2</div><h3>Monte Carlo Stress Test</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#127922;</span> Monte Carlo</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Run a Monte Carlo stress test with 10,000 scenarios for my portfolio:
+<span class="placeholder">[List tickers and weights]</span>
+
+What is the expected loss in the worst 5% of scenarios?
+Show: distribution histogram, loss at percentiles (1%, 5%, 10%),
+expected shortfall (CVaR), and the 5 worst simulated scenarios.
+
+Overlay with a 2008-style crash scenario and a COVID-style drawdown.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">3</div><h3>Credit Risk Analysis</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128179;</span> Credit Risk</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Perform credit risk analysis on this bond portfolio:
+<span class="placeholder">[List bonds: issuer, rating, coupon, maturity, face value]</span>
+
+Calculate for each position:
+- Probability of Default (PD)
+- Loss Given Default (LGD)
+- Expected Credit Loss (ECL)
+
+Aggregate to portfolio-level expected loss.
+What is the credit VaR at 99% confidence?</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 5: CORPORATE FINANCE -->
+<div class="phase" id="phase5"><span class="phase-anchor"></span>
+  <div class="phase-header reveal">
+    <div class="phase-badge" style="background:rgba(64,208,128,.12);color:var(--green)">5</div>
+    <div class="phase-title"><h2>Corporate Finance &amp; M&amp;A</h2><p>LBO models, accretion/dilution, and WACC analysis.</p></div>
+  </div>
+  <div class="badge-row"><span class="badge badge-agent">Financial Analyst</span><span class="badge badge-module">LBO Model</span><span class="badge badge-module">M&A Module</span><span class="badge badge-mcp">AntV Charts</span></div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">1</div><h3>Leveraged Buyout (LBO) Model</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#127970;</span> LBO Prompt</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Build a full LBO model:
+- Entry EV: $<span class="placeholder">[X]</span>M at <span class="placeholder">[X]</span>x EBITDA
+- EBITDA: $<span class="placeholder">[X]</span>M, growing at <span class="placeholder">[X%]</span>/year
+- Debt: <span class="placeholder">[X%]</span> of purchase price at <span class="placeholder">[X%]</span> interest
+- Hold period: <span class="placeholder">[X]</span> years
+- Exit multiple: <span class="placeholder">[X]</span>x EBITDA
+
+Show: IRR, MOIC, cash-on-cash return.
+Generate a sensitivity table: entry multiple vs exit multiple.
+Plot the debt paydown waterfall and equity value bridge.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">2</div><h3>M&amp;A Accretion / Dilution</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128176;</span> M&A Analysis</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Analyze this acquisition scenario:
+- Acquirer: <span class="placeholder">[Company A]</span> (P/E <span class="placeholder">[X]</span>x, EPS $<span class="placeholder">[X]</span>)
+- Target: <span class="placeholder">[Company B]</span> (P/E <span class="placeholder">[X]</span>x, EPS $<span class="placeholder">[X]</span>)
+- Deal: <span class="placeholder">[100% stock / 100% cash / mixed]</span>, <span class="placeholder">[X%]</span> premium
+
+Calculate: EPS accretion/dilution, breakeven synergies needed,
+pro-forma P/E, and the impact on acquirer's share price.
+At what synergy level does the deal become accretive?</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 6: QUANT METHODS -->
+<div class="phase" id="phase6"><span class="phase-anchor"></span>
+  <div class="phase-header reveal">
+    <div class="phase-badge" style="background:rgba(94,207,207,.12);color:var(--teal)">6</div>
+    <div class="phase-title"><h2>Quantitative Methods</h2><p>Regression, ARIMA forecasting, and strategy backtesting.</p></div>
+  </div>
+  <div class="badge-row"><span class="badge badge-agent">Financial Analyst</span><span class="badge badge-module">CAPM Regression</span><span class="badge badge-module">ARIMA</span><span class="badge badge-module">Backtester</span></div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">1</div><h3>CAPM Regression</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128200;</span> CAPM Prompt</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Run a CAPM regression for <span class="placeholder">[TICKER]</span> against the S&P 500
+using 24 months of monthly return data.
+
+Report: alpha, beta, R-squared, t-statistics, p-values.
+Is the alpha statistically significant at 95% confidence?
+Plot the security market line with the stock's position.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">2</div><h3>Revenue Forecasting (ARIMA)</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128201;</span> ARIMA Prompt</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Build an ARIMA model to forecast quarterly revenue for <span class="placeholder">[TICKER or company]</span> for the next 4 quarters.
+
+Use the last 5 years of quarterly revenue data.
+Show: model parameters (p,d,q), fitted values, forecast
+with 95% confidence intervals.
+Plot actual vs fitted vs forecast.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">3</div><h3>Strategy Backtesting</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128640;</span> Backtest Prompt</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Backtest a <span class="placeholder">[momentum / mean-reversion / value]</span> strategy on the S&P 500:
+- <span class="placeholder">[Describe entry/exit rules]</span>
+- Rebalance every <span class="placeholder">[X months]</span>
+- Period: <span class="placeholder">[start year]</span> to <span class="placeholder">[end year]</span>
+
+Report: annual return, Sharpe ratio, max drawdown,
+win rate, avg gain/loss ratio.
+Compare vs buy-and-hold benchmark.
+Plot cumulative returns for both.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 7: REPORT & DECK -->
+<div class="phase" id="phase7"><span class="phase-anchor"></span>
+  <div class="phase-header reveal">
+    <div class="phase-badge" style="background:rgba(240,144,64,.12);color:var(--orange)">7</div>
+    <div class="phase-title"><h2>Report &amp; Presentation</h2><p>Compile your analysis into a client-ready investment report and pitch deck.</p></div>
+  </div>
+  <div class="badge-row"><span class="badge badge-agent">Financial Analyst</span><span class="badge badge-agent">Pitch Maker</span><span class="badge badge-mcp">AntV Charts</span><span class="badge badge-mcp">InfoChart</span></div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">1</div><h3>Generate Investment Report</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128196;</span> Report Prompt</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Compile all analysis from this session into a professional investment report:
+
+Structure:
+1. Executive Summary (1 page) — key findings and recommendation
+2. Valuation Analysis — DCF, multiples, blended fair value
+3. Portfolio Context — risk metrics, factor exposure
+4. Risk Assessment — VaR, stress test results
+5. Technical Analysis — CAPM, momentum signals
+6. Investment Recommendation — BUY / HOLD / SELL with price target
+7. Key Risks — what could go wrong
+
+Tone: institutional client-facing. Include all charts generated.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">2</div><h3>Generate Visual Presentation</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#127912;</span> Deck Prompt</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Create a 10-slide investment analysis presentation:
+
+- Style: Sharp Minimalism
+- Image model: gemini-2.5-flash-image
+
+Slides:
+1. Title — Investment Analysis: <span class="placeholder">[TICKER]</span>
+2. Executive Summary — key metrics and recommendation
+3. Valuation — football field chart with DCF + multiples
+4. Financial Overview — revenue, margins, growth trends
+5. Portfolio Fit — how this fits the portfolio
+6. Risk Profile — VaR, stress test results
+7. Technical Signals — CAPM, momentum, mean reversion
+8. Competitive Position — vs sector peers
+9. Investment Thesis — bull case, bear case, base case
+10. Recommendation — price target, risk/reward, timeline
+
+Export as PPTX.</div>
+    </div>
+  </div>
+
+  <div class="tip-box pro reveal">
+    <div class="tip-icon">&#127942;</div>
+    <div class="tip-content"><strong>Full CFA toolkit delivered.</strong> You've produced: DCF valuation with sensitivity, multi-method blended fair value, efficient frontier optimization, factor exposure analysis, Black-Scholes pricing with Greeks, VaR across 3 methods, Monte Carlo stress test, LBO model, CAPM regression, strategy backtest, a client-ready investment report, and a visual PPTX presentation. All with real calculations and charts.</div>
+  </div>
+</div>
+
+</div>
+
+<script>
+function copyPrompt(btn){const body=btn.closest('.prompt-card').querySelector('.prompt-body');navigator.clipboard.writeText(body.innerText).then(()=>{btn.textContent='Copied!';btn.classList.add('copied');setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('copied')},2000)})}
+const sections=document.querySelectorAll('.phase');const navLinks=document.querySelectorAll('#sidebarNav a');
+const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){const id=en.target.id;navLinks.forEach(l=>{l.classList.remove('active');if(l.getAttribute('href')==='#'+id)l.classList.add('active')})}})},{rootMargin:'-20% 0px -60% 0px'});
+sections.forEach(s=>obs.observe(s));
+const revealObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible')})},{threshold:.1,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
+</script>
+</body>
+</html>

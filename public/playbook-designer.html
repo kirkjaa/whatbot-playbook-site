@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Whatbot Creative Designer Playbook — Visual Communication Journey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a0e14;--bg-card:#131a22;--bg-card-hover:#1a2430;--bg-prompt:#0d1218;--border:#2a3a5080;--border-active:#ff6b3540;--white:#e8f0f0;--gray:#8aa0a0;--dark-gray:#4a6060;--teal:#5ecfcf;--orange:#ff6b35;--orange-dim:#cc5520;--purple:#a06cff;--green:#40d080;--red:#f06060;--yellow:#f0c040;--blue:#4285f4;--pink:#ff4fa0;--coral:#ff7875;--violet:#8b5cf6;--radius:12px;--radius-lg:20px;--sidebar-w:280px}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--white);line-height:1.6;overflow-x:hidden}
+a{color:var(--orange);text-decoration:none}
+
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sidebar-w);background:#0d1218;border-right:1px solid var(--border);padding:24px 0;overflow-y:auto;z-index:50}
+.main{margin-left:var(--sidebar-w);flex:1;min-width:0}
+.sidebar-logo{display:flex;align-items:center;gap:10px;padding:0 20px 24px;font-weight:700;font-size:1.05rem;color:var(--white);border-bottom:1px solid var(--border);margin-bottom:16px}
+.sidebar-logo svg{flex-shrink:0}
+.sidebar-label{padding:4px 20px;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--dark-gray);margin-top:16px;margin-bottom:4px}
+.sidebar-nav{list-style:none}
+.sidebar-nav li a{display:flex;align-items:center;gap:12px;padding:9px 20px;font-size:.82rem;font-weight:500;color:var(--gray);transition:all .2s;border-left:3px solid transparent}
+.sidebar-nav li a:hover{color:var(--white);background:rgba(255,107,53,.04)}
+.sidebar-nav li a.active{color:var(--orange);border-left-color:var(--orange);background:rgba(255,107,53,.06);font-weight:600}
+.sidebar-nav .phase-num{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;flex-shrink:0;background:rgba(255,107,53,.08);color:var(--dark-gray);transition:all .2s}
+.sidebar-nav li a.active .phase-num{background:var(--orange);color:#fff}
+.sidebar-cta{padding:16px 20px;margin-top:16px;border-top:1px solid var(--border)}
+.sidebar-cta a{display:block;text-align:center;padding:10px;border-radius:8px;font-weight:600;font-size:.82rem;background:linear-gradient(135deg,var(--orange),var(--orange-dim));color:#fff;transition:all .2s}
+
+.page-header{padding:60px 48px 40px;border-bottom:1px solid var(--border);background:linear-gradient(180deg,#14100d 0%,var(--bg) 100%)}
+.page-header h1{font-size:2.4rem;font-weight:800;line-height:1.2;margin-bottom:12px;letter-spacing:-.02em}
+.page-header h1 .hl{background:linear-gradient(135deg,var(--orange),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.page-header p{font-size:1.05rem;color:var(--gray);max-width:700px;line-height:1.7;margin-bottom:24px}
+.header-meta{display:flex;gap:24px;flex-wrap:wrap}
+.header-meta-item{display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--gray)}
+.header-meta-item .dot{width:8px;height:8px;border-radius:50%}
+
+.phase{padding:60px 48px;border-bottom:1px solid var(--border)}
+.phase:last-of-type{border-bottom:none}
+.phase-anchor{display:block;position:relative;top:-20px;visibility:hidden}
+.phase-header{display:flex;align-items:flex-start;gap:20px;margin-bottom:32px}
+.phase-badge{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem;flex-shrink:0}
+.phase-title h2{font-size:1.6rem;font-weight:800;line-height:1.2;margin-bottom:4px}
+.phase-title p{font-size:.9rem;color:var(--gray);line-height:1.5}
+
+.badge-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:6px;font-size:.72rem;font-weight:600}
+.badge-agent{background:rgba(94,207,207,.1);color:var(--teal);border:1px solid rgba(94,207,207,.2)}
+.badge-mcp{background:rgba(255,107,53,.1);color:var(--orange);border:1px solid rgba(255,107,53,.2)}
+.badge-skill{background:rgba(160,108,255,.1);color:var(--purple);border:1px solid rgba(160,108,255,.2)}
+.badge-style{background:rgba(255,79,160,.1);color:var(--pink);border:1px solid rgba(255,79,160,.2)}
+
+.prompt-card{border-radius:var(--radius-lg);border:1px solid var(--border);overflow:hidden;margin-bottom:24px;transition:border-color .3s}
+.prompt-card:hover{border-color:var(--border-active)}
+.prompt-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:var(--bg-card);border-bottom:1px solid var(--border)}
+.prompt-label{display:flex;align-items:center;gap:8px;font-size:.8rem;font-weight:600;color:var(--orange)}
+.prompt-label .icon{font-size:1rem}
+.copy-btn{padding:6px 14px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--gray);font-size:.72rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
+.copy-btn:hover{border-color:var(--orange);color:var(--orange)}
+.copy-btn.copied{border-color:var(--green);color:var(--green)}
+.prompt-body{padding:20px;background:var(--bg-prompt);font-family:'JetBrains Mono',monospace;font-size:.82rem;line-height:1.8;color:var(--white);white-space:pre-wrap;word-break:break-word}
+.prompt-body .placeholder{color:var(--coral);font-style:italic}
+
+.output-preview{border-radius:var(--radius-lg);border:1px solid var(--border);overflow:hidden;margin-bottom:24px}
+.output-header{padding:12px 20px;background:var(--bg-card);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.output-dot{width:7px;height:7px;border-radius:50%}
+.output-label{font-size:.75rem;color:var(--gray);margin-left:6px}
+.output-body{padding:20px;background:rgba(13,18,24,.6);font-size:.82rem;line-height:1.7;color:var(--gray)}
+.output-body .success{color:var(--green)}
+.output-body .info{color:var(--teal)}
+.output-body .data{color:var(--orange)}
+.output-body .label{color:var(--white);font-weight:600}
+
+.tip-box{padding:18px 20px;border-radius:var(--radius);margin-bottom:24px;display:flex;gap:14px;align-items:flex-start}
+.tip-box.pro{background:rgba(255,107,53,.06);border:1px solid rgba(255,107,53,.15)}
+.tip-box.warn{background:rgba(240,144,64,.06);border:1px solid rgba(240,144,64,.15)}
+.tip-box.info{background:rgba(160,108,255,.06);border:1px solid rgba(160,108,255,.15)}
+.tip-icon{font-size:1.2rem;flex-shrink:0;margin-top:2px}
+.tip-content{font-size:.82rem;line-height:1.6}
+.tip-content strong{color:var(--white)}
+
+.flow-visual{padding:28px;border-radius:var(--radius-lg);background:var(--bg-card);border:1px solid var(--border);margin-bottom:24px;overflow-x:auto}
+.flow-visual h4{font-size:.85rem;font-weight:700;margin-bottom:16px;color:var(--gray);text-transform:uppercase;letter-spacing:.06em}
+.flow-steps{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.flow-node{padding:10px 16px;border-radius:10px;font-size:.78rem;font-weight:600;white-space:nowrap}
+.flow-node.agent{background:rgba(94,207,207,.1);color:var(--teal);border:1px solid rgba(94,207,207,.2)}
+.flow-node.mcp{background:rgba(255,107,53,.1);color:var(--orange);border:1px solid rgba(255,107,53,.2)}
+.flow-node.output{background:rgba(64,208,128,.1);color:var(--green);border:1px solid rgba(64,208,128,.2)}
+.flow-node.skill{background:rgba(160,108,255,.1);color:var(--purple);border:1px solid rgba(160,108,255,.2)}
+.flow-node.style{background:rgba(255,79,160,.1);color:var(--pink);border:1px solid rgba(255,79,160,.2)}
+.flow-arrow{color:var(--dark-gray);font-size:.85rem;font-weight:700;padding:0 2px}
+
+.deliverables{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:24px}
+.deliverable{padding:14px 16px;border-radius:var(--radius);background:var(--bg-card);border:1px solid var(--border);font-size:.8rem;display:flex;align-items:flex-start;gap:10px}
+.deliverable .d-icon{font-size:1.1rem;flex-shrink:0}
+.deliverable .d-text{line-height:1.4}
+.deliverable .d-text strong{display:block;color:var(--white);font-size:.82rem;margin-bottom:2px}
+.deliverable .d-text span{color:var(--gray);font-size:.72rem}
+
+.step{margin-bottom:32px}
+.step-label{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.step-num{width:28px;height:28px;border-radius:50%;background:rgba(255,107,53,.1);color:var(--orange);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0}
+.step-label h3{font-size:1.05rem;font-weight:700}
+.step p{font-size:.88rem;color:var(--gray);margin-bottom:14px;line-height:1.6;max-width:720px}
+
+/* STYLE GALLERY */
+.style-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;margin-bottom:24px}
+.style-chip{padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:var(--bg-card);font-size:.78rem;font-weight:600;cursor:default;transition:all .2s;text-align:center}
+.style-chip:hover{border-color:var(--orange);background:rgba(255,107,53,.04)}
+.style-chip .slug{display:block;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--dark-gray);margin-top:4px;font-weight:400}
+
+.mobile-nav-toggle{display:none;position:fixed;bottom:20px;right:20px;z-index:100;width:52px;height:52px;border-radius:50%;background:var(--orange);color:#fff;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,.4)}
+@media(max-width:1024px){.sidebar{display:none}.main{margin-left:0}.phase{padding:40px 24px}.page-header{padding:40px 24px 32px}.mobile-nav-toggle{display:flex;align-items:center;justify-content:center}}
+@media(max-width:768px){.deliverables{grid-template-columns:1fr}.style-grid{grid-template-columns:repeat(2,1fr)}.phase-header{flex-direction:column;gap:12px}}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <svg width="32" height="32" viewBox="0 0 100 100"><rect width="100" height="100" rx="12" fill="#2d1a14"/><text x="50" y="68" text-anchor="middle" font-family="Inter,sans-serif" font-size="56" font-weight="800" fill="#ff6b35">W</text></svg>
+    Designer Playbook
+  </div>
+  <div class="sidebar-label">The Journey</div>
+  <ul class="sidebar-nav" id="sidebarNav">
+    <li><a href="#intro" class="active"><span class="phase-num">0</span> Setup</a></li>
+    <li><a href="#phase1"><span class="phase-num">1</span> Brand Identity</a></li>
+    <li><a href="#phase2"><span class="phase-num">2</span> Presentations</a></li>
+    <li><a href="#phase3"><span class="phase-num">3</span> Marketing Visuals</a></li>
+    <li><a href="#phase4"><span class="phase-num">4</span> Product Design</a></li>
+    <li><a href="#phase5"><span class="phase-num">5</span> Social Media</a></li>
+    <li><a href="#phase6"><span class="phase-num">6</span> Infographics</a></li>
+    <li><a href="#phase7"><span class="phase-num">7</span> E-commerce</a></li>
+    <li><a href="#phase8"><span class="phase-num">8</span> Advanced Techniques</a></li>
+  </ul>
+  <div class="sidebar-label">Other Playbooks</div>
+  <ul class="sidebar-nav">
+    <li><a href="playbook.html"><span class="phase-num" style="font-size:.65rem">&#128640;</span> Venture Builder</a></li>
+    <li><a href="playbook-cfa.html"><span class="phase-num" style="font-size:.65rem">&#128200;</span> CFA Analyst</a></li>
+    <li><a href="playbook-marketer.html"><span class="phase-num" style="font-size:.65rem">&#128226;</span> Marketer</a></li>
+    <li><a href="index.html"><span class="phase-num" style="font-size:.65rem">&#8592;</span> Landing Page</a></li>
+  </ul>
+  <div class="sidebar-cta"><a href="https://a.whatnot.quest/" target="_blank">Try Whatbot Live &rarr;</a></div>
+</aside>
+
+<div class="main">
+
+<div class="page-header">
+  <h1>The Creative <span class="hl">Designer Playbook</span></h1>
+  <p>6,000+ curated image prompts, 18 presentation styles, Nano Banana AI imagery, and InfoChart infographics &mdash; everything a creative director needs to produce business-grade visual communication from a single chat.</p>
+  <div class="header-meta">
+    <div class="header-meta-item"><span class="dot" style="background:var(--orange)"></span> 8 Domains</div>
+    <div class="header-meta-item"><span class="dot" style="background:var(--pink)"></span> 6,000+ Image Prompts</div>
+    <div class="header-meta-item"><span class="dot" style="background:var(--purple)"></span> 18 Slide Styles</div>
+    <div class="header-meta-item"><span class="dot" style="background:var(--green)"></span> Nano Banana + InfoChart + AntV</div>
+  </div>
+</div>
+
+<!-- PHASE 0 -->
+<div class="phase" id="intro"><span class="phase-anchor"></span>
+  <div class="phase-header reveal">
+    <div class="phase-badge" style="background:rgba(255,107,53,.12);color:var(--orange)">0</div>
+    <div class="phase-title"><h2>Setup Your Creative Studio</h2><p>Activate the tools, set your brand context, and choose your visual style.</p></div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">A</div><h3>Activate Your Agent</h3></div>
+    <p>Choose the agent based on your task. For AI image generation, any agent can use the Nano Banana MCP. For presentations, any agent can invoke the <strong>create-visual-slides</strong> skill. For a full creative session, start with the <strong>Pitch Maker</strong> agent for presentation-focused work.</p>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">B</div><h3>Set Your Brand Context</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#127912;</span> Brand Context</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Remember these brand guidelines for all creative work this session:
+
+- Brand name: <span class="placeholder">[Your Brand]</span>
+- Industry: <span class="placeholder">[SaaS / E-commerce / Fintech / etc.]</span>
+- Primary colors: <span class="placeholder">[#hex1, #hex2, #hex3]</span>
+- Typography feel: <span class="placeholder">[modern sans-serif / elegant serif / playful / technical]</span>
+- Visual tone: <span class="placeholder">[minimal / bold / luxurious / friendly / corporate]</span>
+- Target audience: <span class="placeholder">[describe who sees these visuals]</span>
+- Key differentiator: <span class="placeholder">[what makes the brand unique]</span>
+- Imagery style: <span class="placeholder">[photography / illustration / 3D / flat design]</span></div>
+    </div>
+  </div>
+
+  <div class="tip-box pro reveal">
+    <div class="tip-icon">&#127752;</div>
+    <div class="tip-content"><strong>Nano Banana MCP</strong> is a Gemini-powered image generation engine. It creates brand assets, product mockups, illustrations, social media visuals, and marketing creatives on demand. The <strong>nano-banana-pro</strong> skill adds 6,000+ curated prompts across 11 categories for instant high-quality results.</div>
+  </div>
+
+  <div class="flow-visual reveal">
+    <h4>Creative Design Pipeline</h4>
+    <div class="flow-steps">
+      <div class="flow-node agent">Your Agent</div><span class="flow-arrow">→</span>
+      <div class="flow-node mcp">Nano Banana</div><span class="flow-arrow">→</span>
+      <div class="flow-node skill">Visual Slides</div><span class="flow-arrow">→</span>
+      <div class="flow-node mcp">InfoChart</div><span class="flow-arrow">→</span>
+      <div class="flow-node mcp">AntV Charts</div><span class="flow-arrow">→</span>
+      <div class="flow-node output">PPTX / PNG / SVG</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 1: BRAND IDENTITY -->
+<div class="phase" id="phase1"><span class="phase-anchor"></span>
+  <div class="phase-header reveal">
+    <div class="phase-badge" style="background:rgba(255,79,160,.12);color:var(--pink)">1</div>
+    <div class="phase-title"><h2>Brand Identity &amp; Visual Systems</h2><p>Generate brand assets, logos concepts, color systems, and visual identity components.</p></div>
+  </div>
+  <div class="badge-row"><span class="badge badge-mcp">Nano Banana</span><span class="badge badge-skill">nano-banana-pro</span></div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">1</div><h3>Brand Mascot / Avatar</h3></div>
+    <p>Use the Avatars &amp; Characters category (500+ prompts) from the nano-banana-pro library to generate brand mascots, team illustrations, and character assets.</p>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#129497;</span> Brand Mascot</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Use Nano Banana to generate a brand mascot for my company:
+
+Brand: <span class="placeholder">[Brand Name]</span>
+Industry: <span class="placeholder">[industry]</span>
+Personality: <span class="placeholder">[friendly / professional / techy / playful]</span>
+Style: <span class="placeholder">[flat vector / 3D render / hand-drawn / minimal line art]</span>
+Colors: <span class="placeholder">[primary brand colors]</span>
+
+Generate 4 variations:
+1. Full body standing pose (for website hero)
+2. Head/bust only (for avatar and favicon)
+3. Waving/welcoming pose (for onboarding screens)
+4. Thinking pose (for loading/processing states)
+
+Each on a transparent background, high resolution.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">2</div><h3>Logo Concept Exploration</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128142;</span> Logo Concepts</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Generate logo concepts for "<span class="placeholder">[Brand Name]</span>":
+
+Brand promise: <span class="placeholder">[one-line value proposition]</span>
+Target feel: <span class="placeholder">[modern / trustworthy / innovative / bold]</span>
+
+Create 5 concept directions:
+1. Wordmark — typographic logo with custom lettering
+2. Lettermark — monogram using initials "<span class="placeholder">[XX]</span>"
+3. Icon + wordmark — abstract symbol paired with name
+4. Mascot-based — character incorporated into the mark
+5. Geometric/abstract — shape-driven minimal mark
+
+For each: white background version and dark background version.
+Style: clean vector aesthetic, suitable for app icon and print.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">3</div><h3>Brand Board &amp; Visual System</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#127912;</span> Brand Board</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Create a complete brand board visual for "<span class="placeholder">[Brand Name]</span>":
+
+Include in a single cohesive composition:
+- Logo placement (centered, prominent)
+- Color palette: <span class="placeholder">[list 4-6 hex colors]</span> with swatches
+- Typography samples showing heading + body text feel
+- Texture/pattern sample that represents the brand
+- 2 mood photography examples matching the visual tone
+- Icon style samples (4 icons)
+
+Style: modern, editorial layout, dark background.
+This will be used to align the design team on visual direction.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 2: PRESENTATIONS -->
+<div class="phase" id="phase2"><span class="phase-anchor"></span>
+  <div class="phase-header reveal">
+    <div class="phase-badge" style="background:rgba(255,107,53,.12);color:var(--orange)">2</div>
+    <div class="phase-title"><h2>Presentations &amp; Slide Decks</h2><p>18 visual styles, AI-generated imagery per slide, exported as PPTX.</p></div>
+  </div>
+  <div class="badge-row"><span class="badge badge-agent">Pitch Maker</span><span class="badge badge-skill">create-visual-slides</span><span class="badge badge-mcp">Nano Banana</span></div>
+
+  <div class="tip-box info reveal">
+    <div class="tip-icon">&#127912;</div>
+    <div class="tip-content"><strong>18 Built-in Styles:</strong> Each presentation gets AI-generated visuals matching the chosen style. You can also extract a style from any existing PDF and apply it to new content.</div>
+  </div>
+
+  <div class="style-grid reveal">
+    <div class="style-chip">Sharp Minimalism<span class="slug">sharp_minimalism</span></div>
+    <div class="style-chip">Black x Orange Agency<span class="slug">black_orange_agency</span></div>
+    <div class="style-chip">Modern Newspaper<span class="slug">modern_newspaper</span></div>
+    <div class="style-chip">Yellow x Black Editorial<span class="slug">yellow_black_editorial</span></div>
+    <div class="style-chip">Seminar Minimal<span class="slug">seminar_minimal</span></div>
+    <div class="style-chip">Manga<span class="slug">manga</span></div>
+    <div class="style-chip">Magazine<span class="slug">magazine</span></div>
+    <div class="style-chip">Neo-Retro Dev<span class="slug">neo_retro_dev</span></div>
+    <div class="style-chip">Pink Street<span class="slug">pink_street</span></div>
+    <div class="style-chip">Digital Neo Pop<span class="slug">digital_neo_pop</span></div>
+    <div class="style-chip">Mincho x Handwritten<span class="slug">mincho_handwritten</span></div>
+    <div class="style-chip">Royal Blue Watercolor<span class="slug">royal_blue_watercolor</span></div>
+    <div class="style-chip">Sculpture / Pop<span class="slug">sculpture_pop</span></div>
+    <div class="style-chip">Tech / Art / Neon<span class="slug">tech_art_neon</span></div>
+    <div class="style-chip">Deformed Flat<span class="slug">deformed_flat</span></div>
+    <div class="style-chip">Studio / Mockup<span class="slug">studio_mockup</span></div>
+    <div class="style-chip">Anti-Gravity<span class="slug">anti_gravity</span></div>
+    <div class="style-chip">Sports / Athletic<span class="slug">sports_athletic</span></div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">1</div><h3>Investor Pitch Deck</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128188;</span> Pitch Deck</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Build a high-quality pitch deck for my Series A raise:
+- Company: <span class="placeholder">[name and one-line description]</span>
+- Deck structure: Problem, Solution, Market, Product,
+  Traction, Business Model, Team, Financials, Ask
+- Style: Black x Orange Creative Agency
+- Image model: gemini-3-pro-image-preview (high quality, crisp text)
+
+Make each slide visually impactful with relevant AI-generated imagery.
+Export as PPTX.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">2</div><h3>Thought Leadership Presentation</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128218;</span> Conference Talk</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Create an AI-visual presentation on "<span class="placeholder">[Topic Title]</span>".
+- <span class="placeholder">[10-15]</span> slides
+- Style: <span class="placeholder">[choose from 18 styles above]</span>
+- Image model: gemini-2.5-flash-image
+- Language: English
+
+Audience: <span class="placeholder">[conference attendees / board members / team]</span>
+Tone: <span class="placeholder">[inspirational / data-driven / storytelling]</span>
+
+Each slide should have a bold headline, concise bullet points,
+and an AI-generated visual that reinforces the message.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">3</div><h3>Style-Matched Deck from PDF</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128196;</span> Style Transfer</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Extract the visual style from this PDF presentation [upload PDF]
+and apply it to a new deck about <span class="placeholder">[topic]</span>.
+
+Keep the same color scheme, typography feel, and layout patterns
+but with entirely new content and AI-generated imagery.
+<span class="placeholder">[X]</span> slides. Export as PPTX.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">4</div><h3>Internal Report / Board Update</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128202;</span> Board Deck</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Create a quarterly board update presentation:
+- Style: Seminar Minimal
+- Image model: gemini-2.5-flash-image
+- 12 slides
+
+Slides:
+1. Title — Q<span class="placeholder">[X]</span> Board Update: <span class="placeholder">[Company]</span>
+2. Key Highlights — top 3 wins this quarter
+3. Revenue &amp; Growth — MRR, growth rate, forecast
+4. Product Milestones — features shipped, roadmap progress
+5. Customer Metrics — churn, NPS, expansion revenue
+6. Team &amp; Hiring — headcount, key hires, org changes
+7. Market &amp; Competitive — landscape shifts, positioning
+8. Risks &amp; Challenges — top 3 risks with mitigation
+9. Financial Overview — P&amp;L summary, burn rate, runway
+10. Strategic Priorities — next quarter focus areas
+11. Ask — decisions or support needed from the board
+12. Appendix — detailed financials, metrics backup
+
+Export as PPTX.</div>
+    </div>
+  </div>
+
+  <div class="output-preview reveal">
+    <div class="output-header"><div class="output-dot" style="background:var(--red)"></div><div class="output-dot" style="background:var(--orange)"></div><div class="output-dot" style="background:var(--green)"></div><div class="output-label">Expected Output</div></div>
+    <div class="output-body">
+<span class="label">&#127912; Presentation Generated</span>
+
+<span class="success">&#10003;</span> <span class="label">Slides:</span> <span class="data">12 slides</span> with AI-generated visuals
+<span class="success">&#10003;</span> <span class="label">Style:</span> Black x Orange Creative Agency
+<span class="success">&#10003;</span> <span class="label">Image Model:</span> gemini-3-pro-image-preview
+<span class="success">&#10003;</span> <span class="label">Format:</span> <span class="data">PPTX</span> (downloadable)
+
+<span class="info">Each slide includes: bold headline, key points, and a unique
+AI-generated visual matching the chosen design style.</span>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 3: MARKETING VISUALS -->
+<div class="phase" id="phase3"><span class="phase-anchor"></span>
+  <div class="phase-header reveal">
+    <div class="phase-badge" style="background:rgba(240,192,64,.12);color:var(--yellow)">3</div>
+    <div class="phase-title"><h2>Marketing &amp; Advertising Visuals</h2><p>Ad creatives, hero images, banners, and promotional materials powered by AI.</p></div>
+  </div>
+  <div class="badge-row"><span class="badge badge-mcp">Nano Banana</span><span class="badge badge-skill">nano-banana-pro</span></div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">1</div><h3>Website Hero Image</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#127756;</span> Hero Visual</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Generate a hero image for my SaaS landing page:
+
+Product: <span class="placeholder">[describe your product]</span>
+Visual concept: <span class="placeholder">[abstract tech / people using product / dashboard mockup / workspace scene]</span>
+Color palette: <span class="placeholder">[brand colors]</span>
+Mood: <span class="placeholder">[professional / innovative / warm / energetic]</span>
+Aspect ratio: 16:9 (wide banner)
+Style: <span class="placeholder">[photorealistic / 3D illustration / flat design / isometric]</span>
+
+No text in the image — copy will be overlaid separately.
+High resolution, suitable for above-the-fold placement.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">2</div><h3>Ad Creative Set</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128247;</span> Ad Creatives</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Create a set of ad creatives for my <span class="placeholder">[product type]</span>:
+
+Campaign theme: <span class="placeholder">[describe the campaign message]</span>
+Target audience: <span class="placeholder">[who will see these ads]</span>
+
+Generate images for each format:
+1. Facebook/Instagram feed ad (1:1 square)
+2. Instagram Story (9:16 vertical)
+3. LinkedIn sponsored post (1.91:1 landscape)
+4. Google Display banner (728x90 leaderboard concept)
+
+Visual style: <span class="placeholder">[style preference]</span>
+Each should convey the same message but optimized for its format.
+No text in images — I'll add copy in the ad platform.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">3</div><h3>Event Poster &amp; Banner</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#127915;</span> Event Poster</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Design an event poster for:
+
+Event: <span class="placeholder">[event name]</span>
+Type: <span class="placeholder">[conference / webinar / workshop / product launch]</span>
+Date: <span class="placeholder">[date]</span>
+Theme: <span class="placeholder">[describe the visual theme]</span>
+Style: <span class="placeholder">[bold typographic / photographic / illustrated / abstract]</span>
+
+Generate:
+1. Vertical poster (for print and social)
+2. Wide banner (for website and email header)
+3. Square version (for social media profile/feed)
+
+Include dramatic visual elements. Leave clear space for text overlay.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 4: PRODUCT DESIGN -->
+<div class="phase" id="phase4"><span class="phase-anchor"></span>
+  <div class="phase-header reveal">
+    <div class="phase-badge" style="background:rgba(139,92,246,.12);color:var(--violet)">4</div>
+    <div class="phase-title"><h2>Product &amp; UI Design</h2><p>App mockups, wireframes, UI concepts, and product visualization.</p></div>
+  </div>
+  <div class="badge-row"><span class="badge badge-mcp">Nano Banana</span><span class="badge badge-skill">nano-banana-pro</span></div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">1</div><h3>App UI Concept</h3></div>
+    <p>Use the App &amp; Web Design category (600+ prompts) for UI mockups, wireframes, and design system explorations.</p>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128241;</span> UI Concept</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Generate a UI concept for a <span class="placeholder">[mobile app / web dashboard / SaaS platform]</span>:
+
+Product: <span class="placeholder">[describe the product]</span>
+Screen: <span class="placeholder">[dashboard / settings / onboarding / data table / analytics]</span>
+Style: <span class="placeholder">[dark mode / light clean / glassmorphism / neumorphism / minimal]</span>
+Color scheme: <span class="placeholder">[brand colors]</span>
+
+Show: navigation, primary content area, key interactive elements.
+Make it look polished and production-ready — this is for stakeholder buy-in.
+Include realistic sample data in the UI.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">2</div><h3>Product Mockup</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128187;</span> Product Mockup</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Generate a realistic product mockup showing my app in context:
+
+App type: <span class="placeholder">[mobile app / desktop app / SaaS dashboard]</span>
+
+Create mockups for:
+1. MacBook Pro showing the dashboard (angled, studio lighting)
+2. iPhone showing the mobile app (hand-held, lifestyle)
+3. Multi-device composite (laptop + phone + tablet together)
+4. Screen floating in abstract space (for pitch deck slides)
+
+Style: professional photography, studio-quality rendering.
+Clean, modern workspace backgrounds.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">3</div><h3>Feature Illustration Set</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128161;</span> Feature Illustrations</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Create a consistent set of feature illustrations for my product page:
+
+Features to illustrate:
+1. <span class="placeholder">[Feature 1 — e.g., "Real-time collaboration"]</span>
+2. <span class="placeholder">[Feature 2 — e.g., "AI-powered analytics"]</span>
+3. <span class="placeholder">[Feature 3 — e.g., "One-click integrations"]</span>
+4. <span class="placeholder">[Feature 4 — e.g., "Enterprise security"]</span>
+
+Style: <span class="placeholder">[isometric / flat vector / 3D / hand-drawn]</span>
+Colors: <span class="placeholder">[brand palette]</span>
+All illustrations should share the same visual language and feel cohesive.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 5: SOCIAL MEDIA -->
+<div class="phase" id="phase5"><span class="phase-anchor"></span>
+  <div class="phase-header reveal">
+    <div class="phase-badge" style="background:rgba(66,133,244,.12);color:var(--blue)">5</div>
+    <div class="phase-title"><h2>Social Media &amp; Content Visuals</h2><p>LinkedIn, Instagram, YouTube thumbnails, and content templates.</p></div>
+  </div>
+  <div class="badge-row"><span class="badge badge-mcp">Nano Banana</span><span class="badge badge-skill">nano-banana-pro</span><span class="badge badge-agent">Marketing Strategist</span></div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">1</div><h3>Social Media Content Calendar Visuals</h3></div>
+    <p>Use the Social Media category (800+ prompts) for platform-optimized visual content.</p>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128247;</span> Social Visuals</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Create a week of social media visuals for my brand:
+
+Brand: <span class="placeholder">[Brand Name]</span>
+Platform: <span class="placeholder">[LinkedIn / Instagram / Twitter]</span>
+Color palette: <span class="placeholder">[brand colors]</span>
+
+Generate 5 images:
+1. Monday — Motivational/industry insight (inspirational visual)
+2. Tuesday — Product feature spotlight (product in context)
+3. Wednesday — Behind-the-scenes / team culture (workspace scene)
+4. Thursday — Customer success / testimonial (abstract celebration)
+5. Friday — Tip or how-to visual (educational graphic)
+
+All images should be cohesive in style and immediately recognizable as our brand.
+Format: 1:1 square for LinkedIn/Instagram feed.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">2</div><h3>YouTube Thumbnails</h3></div>
+    <p>Use the YouTube Thumbnails category (300+ prompts) for click-worthy video covers.</p>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128250;</span> Thumbnails</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Generate YouTube thumbnail concepts for my video:
+
+Video title: "<span class="placeholder">[video title]</span>"
+Video topic: <span class="placeholder">[describe content]</span>
+Channel style: <span class="placeholder">[tech / business / tutorial / vlog]</span>
+
+Create 3 thumbnail variations:
+1. Bold text overlay with dramatic lighting (high contrast)
+2. Person/character reacting with visual metaphor
+3. Before/after or comparison layout
+
+16:9 format. Vibrant, attention-grabbing.
+Should stand out in a crowded feed at small sizes.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">3</div><h3>LinkedIn Carousel Graphics</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128196;</span> Carousel</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Create slide visuals for a LinkedIn carousel post:
+
+Topic: "<span class="placeholder">[carousel topic]</span>"
+Number of slides: <span class="placeholder">[8-12]</span>
+
+Structure:
+- Slide 1: Hook/title slide (attention-grabbing)
+- Slides 2-<span class="placeholder">[X]</span>: Content slides (one key point per slide)
+- Final slide: CTA / follow prompt
+
+Style: <span class="placeholder">[dark background / light clean / branded]</span>
+Colors: <span class="placeholder">[brand colors]</span>
+Generate background images/patterns for each slide.
+Leave clear space for text overlay.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 6: INFOGRAPHICS -->
+<div class="phase" id="phase6"><span class="phase-anchor"></span>
+  <div class="phase-header reveal">
+    <div class="phase-badge" style="background:rgba(94,207,207,.12);color:var(--teal)">6</div>
+    <div class="phase-title"><h2>Infographics &amp; Data Visualization</h2><p>Turn data and processes into compelling visual narratives using InfoChart and AntV.</p></div>
+  </div>
+  <div class="badge-row"><span class="badge badge-mcp">InfoChart</span><span class="badge badge-mcp">AntV Charts</span><span class="badge badge-agent">Financial Analyst</span></div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">1</div><h3>Business Infographic</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128202;</span> Infographic</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Create an infographic using InfoChart MCP:
+
+Title: "<span class="placeholder">[Infographic Title]</span>"
+
+Data to visualize:
+<span class="placeholder">[List your key data points, statistics, or process steps]</span>
+
+Sections:
+1. Header with title and key takeaway stat
+2. <span class="placeholder">[Section: e.g., "Market Size" with TAM/SAM/SOM]</span>
+3. <span class="placeholder">[Section: e.g., "Growth Timeline" with milestones]</span>
+4. <span class="placeholder">[Section: e.g., "Key Metrics" with comparison chart]</span>
+5. Footer with source attribution and CTA
+
+Style: modern, clean, dark background.
+Include icons, progress bars, and visual data representations.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">2</div><h3>Process Flow Diagram</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128736;</span> Process Diagram</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Create a visual process flow infographic:
+
+Process: <span class="placeholder">[describe the process, e.g., "Customer Onboarding Journey"]</span>
+
+Steps:
+1. <span class="placeholder">[Step 1]</span>
+2. <span class="placeholder">[Step 2]</span>
+3. <span class="placeholder">[Step 3]</span>
+4. <span class="placeholder">[Step 4]</span>
+5. <span class="placeholder">[Step 5]</span>
+
+For each step show: icon, title, description, and any decision points.
+Use arrows and connectors to show flow direction.
+Include timing/duration labels where relevant.
+Style: clean, professional, suitable for client presentations.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">3</div><h3>Dashboard &amp; Chart Suite</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128200;</span> Chart Suite</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Using AntV Chart Engine, create a suite of business charts:
+
+Data: <span class="placeholder">[paste your data or describe the metrics]</span>
+
+Generate:
+1. Line chart — <span class="placeholder">[metric over time, e.g., MRR growth]</span>
+2. Bar chart — <span class="placeholder">[comparison, e.g., revenue by channel]</span>
+3. Pie/donut chart — <span class="placeholder">[breakdown, e.g., customer segments]</span>
+4. Area chart — <span class="placeholder">[cumulative metric, e.g., user growth]</span>
+5. Heatmap — <span class="placeholder">[correlation or activity, e.g., engagement by day/hour]</span>
+
+Style: consistent color scheme matching brand colors <span class="placeholder">[hex codes]</span>.
+Professional quality, suitable for investor presentations.
+Export each chart individually.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 7: E-COMMERCE -->
+<div class="phase" id="phase7"><span class="phase-anchor"></span>
+  <div class="phase-header reveal">
+    <div class="phase-badge" style="background:rgba(64,208,128,.12);color:var(--green)">7</div>
+    <div class="phase-title"><h2>E-commerce &amp; Product Photography</h2><p>AI-generated product shots, catalog imagery, and lifestyle visuals.</p></div>
+  </div>
+  <div class="badge-row"><span class="badge badge-mcp">Nano Banana</span><span class="badge badge-skill">nano-banana-pro</span></div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">1</div><h3>Product Photography</h3></div>
+    <p>Use the E-commerce category (500+ prompts) for professional product visuals.</p>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128247;</span> Product Shots</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Generate professional product photography for:
+
+Product: <span class="placeholder">[describe your product]</span>
+
+Create 4 shots:
+1. Hero shot — product centered, clean background, studio lighting
+2. Lifestyle shot — product in use, natural environment
+3. Detail/close-up — texture, material quality, craftsmanship
+4. Group/collection — multiple products or variants arranged together
+
+Style: high-end e-commerce photography.
+Lighting: <span class="placeholder">[soft natural / dramatic studio / flat lay]</span>
+Background: <span class="placeholder">[white / contextual / gradient]</span></div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">2</div><h3>Virtual Staging &amp; Environment</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#127968;</span> Virtual Staging</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Create virtual staging visuals for <span class="placeholder">[product/property type]</span>:
+
+Scene descriptions:
+1. <span class="placeholder">[Modern minimalist living room with the product as focal point]</span>
+2. <span class="placeholder">[Professional office setting showing the product in use]</span>
+3. <span class="placeholder">[Outdoor/lifestyle scene with the product]</span>
+
+Lighting: warm, inviting, golden hour feel.
+Style: aspirational lifestyle photography.
+These will be used for website hero sections and catalog pages.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 8: ADVANCED TECHNIQUES -->
+<div class="phase" id="phase8"><span class="phase-anchor"></span>
+  <div class="phase-header reveal">
+    <div class="phase-badge" style="background:rgba(160,108,255,.12);color:var(--purple)">8</div>
+    <div class="phase-title"><h2>Advanced Creative Techniques</h2><p>Style transfer, character consistency, exploded views, and multi-tool creative workflows.</p></div>
+  </div>
+  <div class="badge-row"><span class="badge badge-mcp">Nano Banana</span><span class="badge badge-skill">nano-banana-pro</span><span class="badge badge-skill">create-visual-slides</span><span class="badge badge-mcp">InfoChart</span></div>
+
+  <div class="tip-box info reveal">
+    <div class="tip-icon">&#129513;</div>
+    <div class="tip-content"><strong>141 Creative Techniques</strong> available through the nano-banana-pro skill, including: character cloning &amp; consistency, style transfer across mediums, exploded/cutaway product views, 3D spatial renders from 2D references, fashion design and lookbook generation, map &amp; architecture visualization, and photo editing &amp; enhancement recipes.</div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">1</div><h3>Character Consistency Across Assets</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#129497;</span> Character Cloning</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">I need a consistent character across multiple marketing assets.
+
+Character: <span class="placeholder">[describe: e.g., "friendly female developer, mid-30s, short dark hair, wearing a teal hoodie"]</span>
+
+Generate this SAME character in these contexts:
+1. Standing at a whiteboard presenting (for website hero)
+2. Working at a laptop, smiling (for testimonial section)
+3. High-fiving a colleague (for team page)
+4. Headshot portrait (for avatar/profile)
+5. Full body walking confidently (for about page)
+
+Maintain exact appearance consistency across all images.
+Style: modern illustration, clean vector feel.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">2</div><h3>Exploded / Cutaway Product View</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128300;</span> Exploded View</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Create an exploded/cutaway view of my product showing its components:
+
+Product: <span class="placeholder">[describe the product or system]</span>
+
+Show these layers/components separated in 3D space:
+1. <span class="placeholder">[Outer layer/shell]</span>
+2. <span class="placeholder">[Middle component]</span>
+3. <span class="placeholder">[Core/engine]</span>
+4. <span class="placeholder">[Base/foundation]</span>
+
+Style: technical illustration, clean isometric or 3D perspective.
+Label each component with clean typography.
+This is for an investor deck showing our technology architecture.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">3</div><h3>Complete Visual Campaign (Multi-Tool)</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128640;</span> Full Campaign</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Run a full visual campaign creation for my product launch:
+
+Product: <span class="placeholder">[name and description]</span>
+Launch date: <span class="placeholder">[date]</span>
+Visual theme: <span class="placeholder">[describe the creative direction]</span>
+
+Deliverables (use all available tools):
+1. Brand hero image (Nano Banana) — website above-the-fold
+2. 5 social media visuals (Nano Banana) — launch week calendar
+3. Market size infographic (InfoChart) — TAM/SAM/SOM visual
+4. Growth projections chart (AntV Charts) — 3-year forecast
+5. Investor pitch deck (Visual Slides) — 12 slides, Style: <span class="placeholder">[choose style]</span>
+6. Product mockups (Nano Banana) — laptop + mobile + tablet
+
+Everything should feel cohesive under one visual identity.
+Export the deck as PPTX. Save all images.</div>
+    </div>
+  </div>
+
+  <div class="flow-visual reveal">
+    <h4>Full Creative Campaign Workflow</h4>
+    <div class="flow-steps">
+      <div class="flow-node agent">Pitch Maker</div><span class="flow-arrow">→</span>
+      <div class="flow-node mcp">Nano Banana</div><span class="flow-arrow">→</span>
+      <div class="flow-node mcp">InfoChart</div><span class="flow-arrow">→</span>
+      <div class="flow-node mcp">AntV Charts</div><span class="flow-arrow">→</span>
+      <div class="flow-node skill">Visual Slides</div><span class="flow-arrow">→</span>
+      <div class="flow-node output">PPTX + PNG Suite</div>
+    </div>
+  </div>
+
+  <div class="deliverables reveal">
+    <div class="deliverable"><div class="d-icon">&#129497;</div><div class="d-text"><strong>Brand Assets</strong><span>Mascot, logo concepts, brand board</span></div></div>
+    <div class="deliverable"><div class="d-icon">&#127912;</div><div class="d-text"><strong>Presentations</strong><span>Pitch decks, board updates, talks</span></div></div>
+    <div class="deliverable"><div class="d-icon">&#128247;</div><div class="d-text"><strong>Marketing Visuals</strong><span>Hero images, ad creatives, posters</span></div></div>
+    <div class="deliverable"><div class="d-icon">&#128241;</div><div class="d-text"><strong>Product Design</strong><span>UI concepts, mockups, features</span></div></div>
+    <div class="deliverable"><div class="d-icon">&#128250;</div><div class="d-text"><strong>Social Content</strong><span>Calendar visuals, thumbnails, carousels</span></div></div>
+    <div class="deliverable"><div class="d-icon">&#128202;</div><div class="d-text"><strong>Infographics</strong><span>Data visuals, process flows, dashboards</span></div></div>
+    <div class="deliverable"><div class="d-icon">&#128722;</div><div class="d-text"><strong>E-commerce</strong><span>Product shots, virtual staging</span></div></div>
+    <div class="deliverable"><div class="d-icon">&#129513;</div><div class="d-text"><strong>Advanced</strong><span>Character cloning, exploded views, campaigns</span></div></div>
+  </div>
+
+  <div class="tip-box pro reveal">
+    <div class="tip-icon">&#127942;</div>
+    <div class="tip-content"><strong>Full creative studio delivered.</strong> You now have prompts for: brand identity systems (mascots, logos, brand boards), 18-style AI presentations with PPTX export, marketing creatives (hero images, ads, posters), product &amp; UI design (mockups, wireframes, feature illustrations), social media content (calendars, thumbnails, carousels), infographics &amp; data visualization, e-commerce photography, and advanced techniques (character consistency, style transfer, exploded views). All powered by Nano Banana, InfoChart, AntV Charts, and the Visual Slides skill.</div>
+  </div>
+</div>
+
+</div>
+
+<script>
+function copyPrompt(btn){const body=btn.closest('.prompt-card').querySelector('.prompt-body');navigator.clipboard.writeText(body.innerText).then(()=>{btn.textContent='Copied!';btn.classList.add('copied');setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('copied')},2000)})}
+const sections=document.querySelectorAll('.phase');const navLinks=document.querySelectorAll('#sidebarNav a');
+const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){const id=en.target.id;navLinks.forEach(l=>{l.classList.remove('active');if(l.getAttribute('href')==='#'+id)l.classList.add('active')})}})},{rootMargin:'-20% 0px -60% 0px'});
+sections.forEach(s=>obs.observe(s));
+const revealObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible')})},{threshold:.1,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
+</script>
+</body>
+</html>

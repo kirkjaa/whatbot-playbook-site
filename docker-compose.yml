@@ -1,0 +1,8 @@
+services:
+  whatbot-playbook:
+    build: .
+    image: whatbot-playbook:latest
+    container_name: whatbot-playbook
+    restart: unless-stopped
+    ports:
+      - "${PLAYBOOK_PORT:-6200}:80"

@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Whatbot Marketing Playbook — Growth Strategist Journey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a1414;--bg-card:#132020;--bg-card-hover:#1a2e2e;--bg-prompt:#0d1a1a;--border:#2a4a4a80;--border-active:#5ecfcf40;--teal:#5ecfcf;--teal-dim:#3a9a9a;--teal-glow:#5ecfcf20;--white:#e8f0f0;--gray:#8aa0a0;--dark-gray:#4a6060;--orange:#f09040;--purple:#a06cff;--green:#40d080;--red:#f06060;--yellow:#f0c040;--blue:#4285f4;--magenta:#e04090;--radius:12px;--radius-lg:20px;--sidebar-w:280px}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--white);line-height:1.6;overflow-x:hidden}
+a{color:var(--teal);text-decoration:none}
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sidebar-w);background:#0d1818;border-right:1px solid var(--border);padding:24px 0;overflow-y:auto;z-index:50}
+.main{margin-left:var(--sidebar-w);flex:1;min-width:0}
+.sidebar-logo{display:flex;align-items:center;gap:10px;padding:0 20px 24px;font-weight:700;font-size:1.1rem;color:var(--white);border-bottom:1px solid var(--border);margin-bottom:16px}
+.sidebar-logo svg{flex-shrink:0}
+.sidebar-label{padding:4px 20px;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--dark-gray);margin-top:16px;margin-bottom:4px}
+.sidebar-nav{list-style:none}
+.sidebar-nav li a{display:flex;align-items:center;gap:12px;padding:9px 20px;font-size:.82rem;font-weight:500;color:var(--gray);transition:all .2s;border-left:3px solid transparent}
+.sidebar-nav li a:hover{color:var(--white);background:rgba(224,64,144,.04)}
+.sidebar-nav li a.active{color:var(--magenta);border-left-color:var(--magenta);background:rgba(224,64,144,.06);font-weight:600}
+.sidebar-nav .phase-num{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;flex-shrink:0;background:rgba(224,64,144,.08);color:var(--dark-gray);transition:all .2s}
+.sidebar-nav li a.active .phase-num{background:var(--magenta);color:#fff}
+.sidebar-cta{padding:16px 20px;margin-top:16px;border-top:1px solid var(--border)}
+.sidebar-cta a{display:block;text-align:center;padding:10px;border-radius:8px;font-weight:600;font-size:.82rem;background:linear-gradient(135deg,var(--magenta),#a02070);color:#fff;transition:all .2s}
+.page-header{padding:60px 48px 40px;border-bottom:1px solid var(--border);background:linear-gradient(180deg,#1a0d14 0%,var(--bg) 100%)}
+.page-header h1{font-size:2.4rem;font-weight:800;line-height:1.2;margin-bottom:12px;letter-spacing:-.02em}
+.page-header h1 .hl{background:linear-gradient(135deg,var(--magenta),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.page-header p{font-size:1.05rem;color:var(--gray);max-width:700px;line-height:1.7;margin-bottom:24px}
+.header-meta{display:flex;gap:24px;flex-wrap:wrap}
+.header-meta-item{display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--gray)}
+.header-meta-item .dot{width:8px;height:8px;border-radius:50%}
+.phase{padding:60px 48px;border-bottom:1px solid var(--border)}
+.phase:last-of-type{border-bottom:none}
+.phase-anchor{display:block;position:relative;top:-20px;visibility:hidden}
+.phase-header{display:flex;align-items:flex-start;gap:20px;margin-bottom:32px}
+.phase-badge{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem;flex-shrink:0}
+.phase-title h2{font-size:1.6rem;font-weight:800;line-height:1.2;margin-bottom:4px}
+.phase-title p{font-size:.9rem;color:var(--gray);line-height:1.5}
+.badge-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:6px;font-size:.72rem;font-weight:600}
+.badge-agent{background:rgba(94,207,207,.1);color:var(--teal);border:1px solid rgba(94,207,207,.2)}
+.badge-mcp{background:rgba(240,144,64,.1);color:var(--orange);border:1px solid rgba(240,144,64,.2)}
+.badge-skill{background:rgba(224,64,144,.1);color:var(--magenta);border:1px solid rgba(224,64,144,.2)}
+.prompt-card{border-radius:var(--radius-lg);border:1px solid var(--border);overflow:hidden;margin-bottom:24px;transition:border-color .3s}
+.prompt-card:hover{border-color:var(--border-active)}
+.prompt-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:var(--bg-card);border-bottom:1px solid var(--border)}
+.prompt-label{display:flex;align-items:center;gap:8px;font-size:.8rem;font-weight:600;color:var(--magenta)}
+.prompt-label .icon{font-size:1rem}
+.copy-btn{padding:6px 14px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--gray);font-size:.72rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
+.copy-btn:hover{border-color:var(--magenta);color:var(--magenta)}
+.copy-btn.copied{border-color:var(--green);color:var(--green)}
+.prompt-body{padding:20px;background:var(--bg-prompt);font-family:'JetBrains Mono',monospace;font-size:.82rem;line-height:1.8;color:var(--white);white-space:pre-wrap;word-break:break-word}
+.prompt-body .placeholder{color:var(--orange);font-style:italic}
+.output-preview{border-radius:var(--radius-lg);border:1px solid var(--border);overflow:hidden;margin-bottom:24px}
+.output-header{padding:12px 20px;background:var(--bg-card);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.output-dot{width:7px;height:7px;border-radius:50%}
+.output-label{font-size:.75rem;color:var(--gray);margin-left:6px}
+.output-body{padding:20px;background:rgba(13,26,26,.6);font-size:.82rem;line-height:1.7;color:var(--gray)}
+.output-body .success{color:var(--green)}
+.output-body .info{color:var(--teal)}
+.output-body .data{color:var(--orange)}
+.output-body .label{color:var(--white);font-weight:600}
+.tip-box{padding:18px 20px;border-radius:var(--radius);margin-bottom:24px;display:flex;gap:14px;align-items:flex-start}
+.tip-box.pro{background:rgba(224,64,144,.06);border:1px solid rgba(224,64,144,.15)}
+.tip-box.warn{background:rgba(240,144,64,.06);border:1px solid rgba(240,144,64,.15)}
+.tip-box.info{background:rgba(160,108,255,.06);border:1px solid rgba(160,108,255,.15)}
+.tip-icon{font-size:1.2rem;flex-shrink:0;margin-top:2px}
+.tip-content{font-size:.82rem;line-height:1.6}
+.tip-content strong{color:var(--white)}
+.flow-visual{padding:28px;border-radius:var(--radius-lg);background:var(--bg-card);border:1px solid var(--border);margin-bottom:24px;overflow-x:auto}
+.flow-visual h4{font-size:.85rem;font-weight:700;margin-bottom:16px;color:var(--gray);text-transform:uppercase;letter-spacing:.06em}
+.flow-steps{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.flow-node{padding:10px 16px;border-radius:10px;font-size:.78rem;font-weight:600;white-space:nowrap}
+.flow-node.agent{background:rgba(94,207,207,.1);color:var(--teal);border:1px solid rgba(94,207,207,.2)}
+.flow-node.mcp{background:rgba(240,144,64,.1);color:var(--orange);border:1px solid rgba(240,144,64,.2)}
+.flow-node.output{background:rgba(64,208,128,.1);color:var(--green);border:1px solid rgba(64,208,128,.2)}
+.flow-node.skill{background:rgba(224,64,144,.1);color:var(--magenta);border:1px solid rgba(224,64,144,.2)}
+.flow-arrow{color:var(--dark-gray);font-size:.85rem;font-weight:700;padding:0 2px}
+.deliverables{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:24px}
+.deliverable{padding:14px 16px;border-radius:var(--radius);background:var(--bg-card);border:1px solid var(--border);font-size:.8rem;display:flex;align-items:flex-start;gap:10px}
+.deliverable .d-icon{font-size:1.1rem;flex-shrink:0}
+.deliverable .d-text{line-height:1.4}
+.deliverable .d-text strong{display:block;color:var(--white);font-size:.82rem;margin-bottom:2px}
+.deliverable .d-text span{color:var(--gray);font-size:.72rem}
+.step{margin-bottom:32px}
+.step-label{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.step-num{width:28px;height:28px;border-radius:50%;background:rgba(224,64,144,.1);color:var(--magenta);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0}
+.step-label h3{font-size:1.05rem;font-weight:700}
+.step p{font-size:.88rem;color:var(--gray);margin-bottom:14px;line-height:1.6;max-width:720px}
+.mobile-nav-toggle{display:none;position:fixed;bottom:20px;right:20px;z-index:100;width:52px;height:52px;border-radius:50%;background:var(--magenta);color:#fff;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,.4)}
+@media(max-width:1024px){.sidebar{display:none}.main{margin-left:0}.phase{padding:40px 24px}.page-header{padding:40px 24px 32px}.mobile-nav-toggle{display:flex;align-items:center;justify-content:center}}
+@media(max-width:768px){.deliverables{grid-template-columns:1fr}.phase-header{flex-direction:column;gap:12px}}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <svg width="32" height="32" viewBox="0 0 100 100"><rect width="100" height="100" rx="12" fill="#2d1e2d"/><text x="50" y="68" text-anchor="middle" font-family="Inter,sans-serif" font-size="56" font-weight="800" fill="#e04090">W</text></svg>
+    Marketing Playbook
+  </div>
+  <div class="sidebar-label">The Journey</div>
+  <ul class="sidebar-nav" id="sidebarNav">
+    <li><a href="#intro" class="active"><span class="phase-num">0</span> Setup</a></li>
+    <li><a href="#phase1"><span class="phase-num">1</span> Positioning</a></li>
+    <li><a href="#phase2"><span class="phase-num">2</span> CRO &amp; Conversion</a></li>
+    <li><a href="#phase3"><span class="phase-num">3</span> SEO &amp; Content</a></li>
+    <li><a href="#phase4"><span class="phase-num">4</span> Copywriting</a></li>
+    <li><a href="#phase5"><span class="phase-num">5</span> Growth &amp; Acquisition</a></li>
+    <li><a href="#phase6"><span class="phase-num">6</span> Paid &amp; Social</a></li>
+    <li><a href="#phase7"><span class="phase-num">7</span> Email &amp; Lifecycle</a></li>
+    <li><a href="#phase8"><span class="phase-num">8</span> Analytics &amp; Testing</a></li>
+    <li><a href="#phase9"><span class="phase-num">9</span> Visual &amp; Deck</a></li>
+  </ul>
+  <div class="sidebar-label">Other Playbooks</div>
+  <ul class="sidebar-nav">
+    <li><a href="playbook.html"><span class="phase-num" style="font-size:.65rem">&#128640;</span> Venture Builder</a></li>
+    <li><a href="playbook-cfa.html"><span class="phase-num" style="font-size:.65rem">&#128200;</span> CFA Analyst</a></li>
+    <li><a href="playbook-designer.html"><span class="phase-num" style="font-size:.65rem">&#127912;</span> Designer</a></li>
+    <li><a href="index.html"><span class="phase-num" style="font-size:.65rem">&#8592;</span> Landing Page</a></li>
+  </ul>
+  <div class="sidebar-cta"><a href="https://a.whatnot.quest/" target="_blank">Try Whatbot Live &rarr;</a></div>
+</aside>
+
+<div class="main">
+
+<div class="page-header">
+  <h1>The Growth <span class="hl">Marketer Playbook</span></h1>
+  <p>25 marketing skills at your fingertips &mdash; from CRO and SEO to launch strategy and paid ads. This playbook walks you through every prompt a SaaS marketer needs to build a full growth engine with Whatbot.</p>
+  <div class="header-meta">
+    <div class="header-meta-item"><span class="dot" style="background:var(--magenta)"></span> 9 Domains</div>
+    <div class="header-meta-item"><span class="dot" style="background:var(--orange)"></span> 30+ Copy-Paste Prompts</div>
+    <div class="header-meta-item"><span class="dot" style="background:var(--green)"></span> 25 Skills</div>
+    <div class="header-meta-item"><span class="dot" style="background:var(--teal)"></span> GPT Researcher + Charts + Imagery</div>
+  </div>
+</div>
+
+<!-- PHASE 0 -->
+<div class="phase" id="intro"><span class="phase-anchor"></span>
+  <div class="phase-header reveal">
+    <div class="phase-badge" style="background:rgba(224,64,144,.12);color:var(--magenta)">0</div>
+    <div class="phase-title"><h2>Setup Your Session</h2><p>Activate the Marketing Strategist and load your context.</p></div>
+  </div>
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">A</div><h3>Select the Marketing Strategist Agent</h3></div>
+    <p>Click the <strong>Agent Profile selector</strong> and choose <strong>Marketing Strategist</strong>. This auto-loads 25 marketing skills from <code>usr/skills/marketingskills/</code>.</p>
+  </div>
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">B</div><h3>Set Your Product Context</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128173;</span> Context Prompt</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Remember the following for this session:
+
+- Product: <span class="placeholder">[SaaS product name and description]</span>
+- ICP: <span class="placeholder">[Ideal Customer Profile — role, company size, industry]</span>
+- Pricing: <span class="placeholder">[Free trial? Freemium? Pricing tiers]</span>
+- Current stage: <span class="placeholder">[pre-launch / launched / scaling]</span>
+- Metrics: <span class="placeholder">[MRR, traffic, conversion rate, churn]</span>
+- Goals: <span class="placeholder">[What are you trying to achieve?]</span>
+- Budget: <span class="placeholder">[bootstrapped / $X/month for ads]</span>
+- Existing assets: <span class="placeholder">[email list, social following, blog]</span></div>
+    </div>
+  </div>
+  <div class="tip-box pro reveal">
+    <div class="tip-icon">&#128161;</div>
+    <div class="tip-content"><strong>Skills auto-load:</strong> Each marketing skill activates when you mention trigger phrases. Say "CRO audit" and the page-cro skill loads. Say "email sequence" and the drip campaign skill activates. You can also explicitly say "Load the [skill-name] skill."</div>
+  </div>
+  <div class="flow-visual reveal">
+    <h4>The Full Marketing Stack — Skills at Every Stage</h4>
+    <div class="flow-steps">
+      <div class="flow-node skill">Positioning</div><span class="flow-arrow">→</span>
+      <div class="flow-node skill">CRO</div><span class="flow-arrow">→</span>
+      <div class="flow-node skill">SEO</div><span class="flow-arrow">→</span>
+      <div class="flow-node skill">Copywriting</div><span class="flow-arrow">→</span>
+      <div class="flow-node skill">Launch</div><span class="flow-arrow">→</span>
+      <div class="flow-node skill">Paid Ads</div><span class="flow-arrow">→</span>
+      <div class="flow-node skill">Email</div><span class="flow-arrow">→</span>
+      <div class="flow-node skill">Analytics</div><span class="flow-arrow">→</span>
+      <div class="flow-node output">Growth &#128640;</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 1: POSITIONING -->
+<div class="phase" id="phase1"><span class="phase-anchor"></span>
+  <div class="phase-header reveal">
+    <div class="phase-badge" style="background:rgba(224,64,144,.12);color:var(--magenta)">1</div>
+    <div class="phase-title"><h2>Positioning &amp; Messaging</h2><p>Nail your product story before writing a single word of copy.</p></div>
+  </div>
+  <div class="badge-row"><span class="badge badge-agent">Marketing Strategist</span><span class="badge badge-skill">product-marketing-context</span><span class="badge badge-skill">pricing-strategy</span></div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">1</div><h3>Messaging Framework</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#127919;</span> Positioning</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Build a product marketing messaging framework for my SaaS.
+
+Product: <span class="placeholder">[describe your product]</span>
+Key differentiator: <span class="placeholder">[your unique advantage]</span>
+ICP: <span class="placeholder">[describe target customer]</span>
+
+Output: positioning statement, value proposition, key messages
+for each persona, and one-line elevator pitch.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">2</div><h3>Pricing Architecture</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128176;</span> Pricing Strategy</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Design a pricing strategy for my B2B SaaS tool.
+Current situation:
+- All features, one flat price: $<span class="placeholder">[X]</span>/month
+- <span class="placeholder">[X%]</span> of customers use &lt; 20% of features
+- We're losing deals to cheaper competitors
+
+Should I add tiers? What should each tier include?
+Give me 3 pricing architecture options with trade-offs.
+Include: tier names, pricing, feature packaging, and positioning for each.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">3</div><h3>Psychology-Based Pricing Page</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#129504;</span> Psychology</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Apply the top 5 most relevant psychological principles
+to my SaaS pricing page. For each principle, give me
+a specific change to make on the page and explain why it works.
+
+My page currently has: <span class="placeholder">[describe your pricing page layout]</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 2: CRO -->
+<div class="phase" id="phase2"><span class="phase-anchor"></span>
+  <div class="phase-header reveal">
+    <div class="phase-badge" style="background:rgba(240,96,96,.12);color:var(--red)">2</div>
+    <div class="phase-title"><h2>CRO &amp; Conversion Optimization</h2><p>Turn more visitors into users, and more users into paying customers.</p></div>
+  </div>
+  <div class="badge-row"><span class="badge badge-agent">Marketing Strategist</span><span class="badge badge-skill">page-cro</span><span class="badge badge-skill">form-cro</span><span class="badge badge-skill">signup-flow-cro</span><span class="badge badge-skill">onboarding-cro</span><span class="badge badge-skill">paywall-upgrade-cro</span><span class="badge badge-skill">popup-cro</span></div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">1</div><h3>Full Page CRO Audit</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128269;</span> CRO Audit</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Run a CRO audit on my landing page. Here's the page content:
+<span class="placeholder">[paste page text or URL]</span>
+
+I get <span class="placeholder">[X]</span> visitors/month and <span class="placeholder">[X]</span> signups.
+Analyze: hero section, value prop clarity, social proof,
+CTA placement, and friction points.
+Give me a prioritized list of changes ranked by expected impact.
+What are the top 5 changes I should make to double my conversion rate?</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">2</div><h3>Signup Flow Optimization</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128100;</span> Signup Flow</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Audit my signup flow. Current steps:
+<span class="placeholder">[List your signup steps, e.g.:
+1. Enter email
+2. Enter password (with requirements shown)
+3. Verify email (before seeing the app)
+4. Complete profile (name, company, role, team size)
+5. Choose plan (required before accessing app)]</span>
+
+My drop-off is highest at step <span class="placeholder">[X]</span>.
+Fix the flow to maximize the number of users who reach the core product.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">3</div><h3>Form Friction Reduction</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128221;</span> Form CRO</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">My signup form has a <span class="placeholder">[X%]</span> abandonment rate.
+Current fields: <span class="placeholder">[list all your form fields]</span>
+
+Reduce friction while keeping the leads qualified.
+What should I cut? What should stay? How should I reorder it?
+Should I use progressive profiling or multi-step forms?</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">4</div><h3>Onboarding Redesign</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#127937;</span> Onboarding</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">My SaaS onboarding has a <span class="placeholder">[X%]</span> activation rate
+(users who complete the core action within 7 days).
+Industry benchmark is 60%.
+
+Here's my current onboarding flow:
+<span class="placeholder">[describe or paste your flow]</span>
+
+Redesign the onboarding sequence to hit 50%+ activation.
+Include: welcome screen, progress indicators, empty states, and nudge emails.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">5</div><h3>Paywall &amp; Upgrade Prompts</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128274;</span> Paywall CRO</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Design upgrade prompts for my freemium SaaS.
+Free limit: <span class="placeholder">[describe your free tier limit]</span>
+Paid: <span class="placeholder">[describe paid tier]</span>
+
+When and how should I show the upgrade prompt?
+What copy works best? Should I use hard or soft paywalls?
+Give me 3 paywall designs with copy for each.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 3: SEO & CONTENT -->
+<div class="phase" id="phase3"><span class="phase-anchor"></span>
+  <div class="phase-header reveal">
+    <div class="phase-badge" style="background:rgba(64,208,128,.12);color:var(--green)">3</div>
+    <div class="phase-title"><h2>SEO &amp; Content Strategy</h2><p>Build organic traffic through search and content at scale.</p></div>
+  </div>
+  <div class="badge-row"><span class="badge badge-agent">Marketing Strategist</span><span class="badge badge-skill">seo-audit</span><span class="badge badge-skill">content-strategy</span><span class="badge badge-skill">programmatic-seo</span><span class="badge badge-skill">schema-markup</span><span class="badge badge-mcp">GPT Researcher</span></div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">1</div><h3>SEO Audit</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128270;</span> SEO Audit</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Audit the SEO of this article:
+<span class="placeholder">[paste content or URL]</span>
+
+Cover: title tag, meta description, header structure,
+keyword density, internal linking, content depth, schema markup.
+Give a prioritized fix list with before/after examples.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">2</div><h3>Content Strategy &amp; Calendar</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128197;</span> Content Strategy</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Build a content strategy for my <span class="placeholder">[industry]</span> SaaS targeting
+<span class="placeholder">[ICP description]</span>.
+
+Include:
+- 3 pillar topics with 5 cluster topics each
+- Content types per stage (awareness, consideration, decision)
+- Keyword difficulty targets for a <span class="placeholder">[DA X]</span> site
+- 90-day content calendar
+- Distribution plan per piece</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">3</div><h3>Programmatic SEO at Scale</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#9889;</span> Programmatic SEO</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Design a programmatic SEO strategy for a <span class="placeholder">[type of site]</span>.
+- What template types should I build?
+- What's the database structure behind the pages?
+- How do I avoid thin content penalties?
+- What's the expected keyword universe size?
+Give me a full implementation plan with example page templates.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">4</div><h3>Schema Markup for Rich Snippets</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128296;</span> Schema Markup</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Generate schema markup for my SaaS pricing page.
+I have <span class="placeholder">[X]</span> tiers: <span class="placeholder">[list tier names and prices]</span>.
+
+Give me the full JSON-LD code and explain where to place it.
+What rich snippet results can I expect in Google?</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 4: COPYWRITING -->
+<div class="phase" id="phase4"><span class="phase-anchor"></span>
+  <div class="phase-header reveal">
+    <div class="phase-badge" style="background:rgba(240,144,64,.12);color:var(--orange)">4</div>
+    <div class="phase-title"><h2>Copywriting &amp; Messaging</h2><p>Write high-converting copy for every touchpoint.</p></div>
+  </div>
+  <div class="badge-row"><span class="badge badge-agent">Marketing Strategist</span><span class="badge badge-skill">copywriting</span><span class="badge badge-skill">copy-editing</span><span class="badge badge-skill">competitor-alternatives</span></div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">1</div><h3>Full Landing Page Copy</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128196;</span> Landing Page</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Write a complete homepage for my <span class="placeholder">[product type]</span>:
+- Hero headline + subheadline + CTA
+- 3 feature sections with benefits-first copy
+- Social proof section (I'll add real quotes)
+- FAQ (5 questions)
+- Final CTA
+
+Target audience: <span class="placeholder">[describe audience]</span>
+Tone: <span class="placeholder">[confident / friendly / technical / etc.]</span></div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">2</div><h3>Competitor Comparison Pages</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#9878;&#65039;</span> vs Page</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Help me create a "<span class="placeholder">[My Product]</span> vs <span class="placeholder">[Competitor]</span>" comparison page.
+
+My product: <span class="placeholder">[describe it]</span>
+Audience: teams currently using <span class="placeholder">[Competitor]</span> who feel it's <span class="placeholder">[pain point]</span>.
+
+Structure the page to rank for "<span class="placeholder">[Competitor]</span> alternative" and convert
+skeptical switchers. Include: comparison table, positioning,
+FAQs, and CTA strategy.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">3</div><h3>Copy Editing &amp; Sharpening</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#9999;&#65039;</span> Copy Edit</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Edit this landing page section for clarity, flow, and
+conversion-readiness. Don't change the core message —
+just make it sharper:
+
+<span class="placeholder">[paste your existing copy]</span>
+
+My homepage hero says "<span class="placeholder">[current headline]</span>".
+Rewrite it using CRO principles — value proposition clarity,
+specificity, and action orientation. Give me 3 alternatives.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 5: GROWTH -->
+<div class="phase" id="phase5"><span class="phase-anchor"></span>
+  <div class="phase-header reveal">
+    <div class="phase-badge" style="background:rgba(94,207,207,.12);color:var(--teal)">5</div>
+    <div class="phase-title"><h2>Growth &amp; Acquisition</h2><p>Launch strategies, referral programs, and free tool marketing.</p></div>
+  </div>
+  <div class="badge-row"><span class="badge badge-agent">Marketing Strategist</span><span class="badge badge-skill">launch-strategy</span><span class="badge badge-skill">referral-program</span><span class="badge badge-skill">free-tool-strategy</span><span class="badge badge-mcp">GPT Researcher</span></div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">1</div><h3>Launch Strategy</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128640;</span> Launch Plan</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Build a 6-week launch plan for my new SaaS product.
+Product: <span class="placeholder">[describe it]</span>
+Target audience: <span class="placeholder">[describe them]</span>
+Current assets: <span class="placeholder">[email list size, social followers, budget]</span>
+
+What should I do in each week leading up to and including launch day?
+Cover: channels, messaging, tactics, success metrics.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">2</div><h3>Product Hunt Launch</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128049;</span> Product Hunt</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">I'm launching on Product Hunt next <span class="placeholder">[day]</span>.
+Walk me through everything I need to prepare:
+- Hunter selection strategy
+- Gallery images and description copy
+- Comment strategy (first comment, responses)
+- Day-of hour-by-hour plan
+- Community outreach before and during launch</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">3</div><h3>Referral Program</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128101;</span> Referral</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Build a referral program for my subscription SaaS ($<span class="placeholder">[X]</span>/month).
+
+Include: incentive structure (double-sided? credits? cash?),
+referral mechanics, email templates for inviting friends,
+success metrics, and how to prevent abuse.
+What viral coefficient can I expect?</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">4</div><h3>Free Tool Lead Magnet</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128295;</span> Free Tool</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">What free tool should I build for my <span class="placeholder">[industry]</span> SaaS
+to generate top-of-funnel traffic and leads?
+
+My paying customers are <span class="placeholder">[ICP description]</span>.
+Suggest 5 free tool ideas with:
+- Expected search volume
+- Development complexity (low/med/high)
+- Lead capture mechanism
+- Conversion path to paid product</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 6: PAID & SOCIAL -->
+<div class="phase" id="phase6"><span class="phase-anchor"></span>
+  <div class="phase-header reveal">
+    <div class="phase-badge" style="background:rgba(66,133,244,.12);color:var(--blue)">6</div>
+    <div class="phase-title"><h2>Paid Ads &amp; Social Media</h2><p>Google Ads, Meta campaigns, LinkedIn posts, and social content.</p></div>
+  </div>
+  <div class="badge-row"><span class="badge badge-agent">Marketing Strategist</span><span class="badge badge-skill">paid-ads</span><span class="badge badge-skill">social-content</span><span class="badge badge-mcp">Nano Banana</span></div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">1</div><h3>Google Ads Campaign</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128178;</span> Google Ads</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Create a Google Ads campaign strategy for my B2B SaaS.
+- Product: <span class="placeholder">[describe product]</span>
+- ICP: <span class="placeholder">[target persona, company size]</span>
+- Budget: $<span class="placeholder">[X]</span>/month
+- Goal: <span class="placeholder">[X]</span> free trial signups/month
+
+Give me: campaign structure, keyword themes, match types,
+negative keywords, ad copy for 2 ad groups, and bidding strategy.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">2</div><h3>Meta Ads Diagnosis</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128202;</span> Meta Ads</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">My Meta ads have a CTR of <span class="placeholder">[X%]</span> and CPA of $<span class="placeholder">[X]</span> for a $<span class="placeholder">[X]</span>/month product.
+
+How do I improve this?
+Diagnose the funnel (awareness → click → trial → paid)
+and tell me what to fix first.
+Rewrite my current ad copy with 3 alternatives.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">3</div><h3>LinkedIn Content Series</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128172;</span> Social Content</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Write 5 LinkedIn posts about <span class="placeholder">[topic]</span> for <span class="placeholder">[target audience]</span>.
+Mix formats:
+1. List post (tactical tips)
+2. Story/narrative (personal experience)
+3. Opinion/hot take (contrarian angle)
+4. Tactical tip (step-by-step)
+5. Case study format (results-focused)
+
+Keep each under 1,300 characters. Strong opening hooks.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">4</div><h3>Twitter/X Thread from Blog</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128038;</span> Thread</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Turn this blog post into a Twitter/X thread:
+<span class="placeholder">[paste blog post or URL]</span>
+
+Make it punchy, add hooks, use numbered tweets, max 15 tweets.
+End with a CTA to read the full post.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 7: EMAIL -->
+<div class="phase" id="phase7"><span class="phase-anchor"></span>
+  <div class="phase-header reveal">
+    <div class="phase-badge" style="background:rgba(160,108,255,.12);color:var(--purple)">7</div>
+    <div class="phase-title"><h2>Email &amp; Lifecycle Marketing</h2><p>Welcome sequences, re-engagement, and conversion-focused drip campaigns.</p></div>
+  </div>
+  <div class="badge-row"><span class="badge badge-agent">Marketing Strategist</span><span class="badge badge-skill">email-sequence</span><span class="badge badge-skill">popup-cro</span></div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">1</div><h3>Welcome &amp; Trial Conversion Sequence</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128231;</span> Welcome Sequence</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Write a <span class="placeholder">[5-7]</span>-email welcome sequence for new trial users
+of my <span class="placeholder">[product type]</span> (<span class="placeholder">[X]</span>-day trial, $<span class="placeholder">[X]</span>/month paid).
+
+Goal: get them to <span class="placeholder">[key activation action]</span> within 3 days
+and convert to paid before day <span class="placeholder">[X]</span>.
+
+Include: subject lines, preview text, full email body, send timing.
+Use behavioral triggers where possible.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">2</div><h3>Re-engagement Campaign</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128140;</span> Win-Back</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Create a 3-email re-engagement sequence for churned customers
+who cancelled <span class="placeholder">[X]</span> days ago.
+
+Offer a <span class="placeholder">[X%]</span> comeback discount.
+Don't be desperate — be confident and value-focused.
+Include: subject lines, email copy, CTA, and optimal send timing.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">3</div><h3>Exit Intent &amp; Email Capture</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128680;</span> Exit Intent</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Design an exit intent popup strategy for my SaaS landing page.
+Goal: capture email addresses from visitors who don't sign up.
+
+What's the right offer? What copy? When should it trigger?
+What should the follow-up email sequence look like (3 emails)?</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 8: ANALYTICS -->
+<div class="phase" id="phase8"><span class="phase-anchor"></span>
+  <div class="phase-header reveal">
+    <div class="phase-badge" style="background:rgba(240,192,64,.12);color:var(--yellow)">8</div>
+    <div class="phase-title"><h2>Analytics &amp; A/B Testing</h2><p>Measure everything, test what matters, and iterate with data.</p></div>
+  </div>
+  <div class="badge-row"><span class="badge badge-agent">Marketing Strategist</span><span class="badge badge-skill">analytics-tracking</span><span class="badge badge-skill">ab-test-setup</span><span class="badge badge-mcp">AntV Charts</span></div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">1</div><h3>Analytics Tracking Plan</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128200;</span> Tracking Plan</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Set up an analytics tracking plan for my SaaS product.
+Key user actions to track:
+<span class="placeholder">[e.g., Signed up, completed onboarding, invited team member,
+created first project, upgraded to paid, churned]</span>
+
+Give me: the event schema (event name, properties, when to fire),
+what tool to use, and how to build a retention cohort analysis.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">2</div><h3>A/B Test Design</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128300;</span> A/B Test</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Design an A/B test for my <span class="placeholder">[element: signup button / headline / pricing page]</span>.
+Current: <span class="placeholder">[describe the current version]</span>
+Hypothesis: <span class="placeholder">[describe your hypothesis]</span>
+
+How long should I run it?
+What sample size do I need for statistical significance?
+What tool should I use and how do I measure results?</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">3</div><h3>Creative Campaign Ideas</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128161;</span> Campaign Ideation</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Generate 10 creative marketing ideas for my bootstrapped
+<span class="placeholder">[product type]</span> (no paid budget) targeting <span class="placeholder">[ICP]</span>.
+I have <span class="placeholder">[describe existing assets: social following, email list]</span>.
+
+Make the ideas specific and actionable — not generic.
+Rank by effort vs impact. Include expected timeline and metrics.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 9: VISUAL & DECK -->
+<div class="phase" id="phase9"><span class="phase-anchor"></span>
+  <div class="phase-header reveal">
+    <div class="phase-badge" style="background:rgba(240,144,64,.12);color:var(--orange)">9</div>
+    <div class="phase-title"><h2>Visual Assets &amp; Presentation</h2><p>Generate marketing visuals, infographics, and strategy decks with MCP integrations.</p></div>
+  </div>
+  <div class="badge-row"><span class="badge badge-agent">Marketing Strategist</span><span class="badge badge-agent">Pitch Maker</span><span class="badge badge-mcp">Nano Banana</span><span class="badge badge-mcp">InfoChart</span><span class="badge badge-mcp">AntV Charts</span></div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">1</div><h3>Marketing Dashboard Chart</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#128202;</span> Data Visualization</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Create a marketing dashboard with charts for:
+1. Monthly traffic trend (last 12 months)
+2. Conversion funnel: visitors → signups → activated → paid
+3. Channel breakdown pie chart (organic, paid, referral, direct)
+4. MRR growth line chart
+
+Use these numbers:
+<span class="placeholder">[paste your metrics data]</span>
+
+Generate professional charts suitable for a board presentation.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">2</div><h3>Marketing Strategy Infographic</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#127912;</span> Infographic</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Create an infographic summarizing my marketing strategy:
+
+Title: "<span class="placeholder">[Your Product]</span> Growth Playbook"
+
+Include these sections:
+- Target audience personas (2-3)
+- Channel strategy with expected ROI per channel
+- 90-day milestone timeline
+- Key metrics and KPIs
+- Budget allocation breakdown
+
+Style: modern, clean, dark background. Use the InfoChart MCP.</div>
+    </div>
+  </div>
+
+  <div class="step reveal">
+    <div class="step-label"><div class="step-num">3</div><h3>Marketing Strategy Presentation</h3></div>
+    <div class="prompt-card">
+      <div class="prompt-header"><div class="prompt-label"><span class="icon">&#127912;</span> Strategy Deck</div><button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+      <div class="prompt-body">Create a 12-slide marketing strategy presentation:
+
+- Style: Sharp Minimalism
+- Image model: gemini-2.5-flash-image
+
+Slides:
+1. Title — Marketing Strategy: <span class="placeholder">[Product Name]</span>
+2. Market Landscape — TAM, trends, opportunity
+3. Target Audience — ICP profiles, pain points
+4. Positioning — value prop, differentiators, competitive map
+5. Acquisition Strategy — channels, tactics, budget
+6. Content Strategy — pillars, calendar, distribution
+7. Conversion Funnel — signup flow, activation, paywall
+8. Retention & Lifecycle — email sequences, engagement
+9. Growth Loops — referral, virality, community
+10. Metrics Dashboard — KPIs, targets, tracking plan
+11. 90-Day Roadmap — milestones, owners, dependencies
+12. Budget & ROI — spend allocation, expected returns
+
+Export as PPTX.</div>
+    </div>
+  </div>
+
+  <div class="flow-visual reveal">
+    <h4>Full Marketing Workflow Chain</h4>
+    <div class="flow-steps">
+      <div class="flow-node agent">Marketing Strategist</div><span class="flow-arrow">→</span>
+      <div class="flow-node mcp">GPT Researcher</div><span class="flow-arrow">→</span>
+      <div class="flow-node skill">25 Skills</div><span class="flow-arrow">→</span>
+      <div class="flow-node mcp">AntV Charts</div><span class="flow-arrow">→</span>
+      <div class="flow-node mcp">InfoChart</div><span class="flow-arrow">→</span>
+      <div class="flow-node mcp">Nano Banana</div><span class="flow-arrow">→</span>
+      <div class="flow-node agent">Pitch Maker</div><span class="flow-arrow">→</span>
+      <div class="flow-node output">PPTX Deck</div>
+    </div>
+  </div>
+
+  <div class="tip-box pro reveal">
+    <div class="tip-icon">&#127942;</div>
+    <div class="tip-content"><strong>Full marketing engine delivered.</strong> You've covered: product positioning, pricing architecture, CRO across 6 touchpoints, SEO (site audit + programmatic), full-funnel copywriting, launch + referral + free tool strategies, paid ads (Google + Meta), social content, email lifecycle sequences, analytics tracking, A/B testing, and a visual strategy deck. All 25 skills, 5 MCP integrations, in one journey.</div>
+  </div>
+</div>
+
+</div>
+
+<script>
+function copyPrompt(btn){const body=btn.closest('.prompt-card').querySelector('.prompt-body');navigator.clipboard.writeText(body.innerText).then(()=>{btn.textContent='Copied!';btn.classList.add('copied');setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('copied')},2000)})}
+const sections=document.querySelectorAll('.phase');const navLinks=document.querySelectorAll('#sidebarNav a');
+const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){const id=en.target.id;navLinks.forEach(l=>{l.classList.remove('active');if(l.getAttribute('href')==='#'+id)l.classList.add('active')})}})},{rootMargin:'-20% 0px -60% 0px'});
+sections.forEach(s=>obs.observe(s));
+const revealObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible')})},{threshold:.1,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
+</script>
+</body>
+</html>

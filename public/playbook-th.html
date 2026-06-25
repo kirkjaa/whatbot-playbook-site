@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Whatbot v1.7 Complete Playbook — ภาษาไทย</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Thai:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a1414;--panel:#0d1818;--card:#132020;--card2:#0d1a1a;--border:#2a4a4a80;--teal:#5ecfcf;--green:#40d080;--orange:#f09040;--purple:#a06cff;--red:#f06060;--blue:#4285f4;--white:#e8f0f0;--gray:#8aa0a0;--muted:#4a6060;--radius:14px;--radius-lg:22px;--sidebar:292px}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:"Noto Sans Thai",Inter,system-ui,sans-serif;background:var(--bg);color:var(--white);line-height:1.75;overflow-x:hidden}
+a{color:var(--teal);text-decoration:none}
+.layout{display:flex;min-height:100vh}
+.sidebar{position:fixed;inset:0 auto 0 0;width:var(--sidebar);background:var(--panel);border-right:1px solid var(--border);padding:24px 0;overflow:auto;z-index:20}
+.main{margin-left:var(--sidebar);width:calc(100% - var(--sidebar))}
+.logo{display:flex;align-items:center;gap:10px;padding:0 20px 22px;margin-bottom:14px;border-bottom:1px solid var(--border);font-weight:800}
+.logo-mark{width:34px;height:34px;border-radius:8px;background:#1e2d2d;display:grid;place-items:center;color:var(--teal);font:800 1.35rem Inter}
+.nav-label{padding:12px 20px 6px;color:var(--muted);font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;font-weight:800}
+.nav{list-style:none}
+.nav a{display:flex;gap:11px;align-items:center;padding:9px 20px;color:var(--gray);font-size:.82rem;border-left:3px solid transparent;transition:.2s}
+.nav a:hover,.nav a.active{color:var(--teal);background:rgba(94,207,207,.06);border-left-color:var(--teal)}
+.num{width:25px;height:25px;border-radius:7px;background:rgba(94,207,207,.09);display:grid;place-items:center;font:.72rem Inter;font-weight:800;flex:0 0 auto}
+.cta{padding:18px 20px;margin-top:10px;border-top:1px solid var(--border)}
+.cta a{display:block;text-align:center;background:linear-gradient(135deg,var(--teal),#3a9a9a);color:#081313;border-radius:10px;padding:11px;font-size:.84rem;font-weight:800}
+.hero{padding:64px 52px 42px;border-bottom:1px solid var(--border);background:radial-gradient(70% 80% at 50% 0%,#173030 0%,transparent 62%),linear-gradient(180deg,#0d1a1a 0%,var(--bg) 100%)}
+.eyebrow{display:inline-flex;gap:8px;align-items:center;color:var(--teal);font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px}
+.dot{width:8px;height:8px;border-radius:999px;background:var(--green)}
+h1{font-size:2.55rem;line-height:1.16;letter-spacing:-.02em;margin-bottom:14px}
+.hl{background:linear-gradient(135deg,var(--teal),var(--green));background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{max-width:880px;color:var(--gray);font-size:1.06rem;margin-bottom:24px}
+.meta{display:flex;gap:12px;flex-wrap:wrap}
+.pill{padding:7px 12px;border:1px solid var(--border);border-radius:999px;color:var(--gray);font-size:.78rem;background:rgba(19,32,32,.65)}
+.section{padding:54px 52px;border-bottom:1px solid var(--border)}
+.section-head{display:flex;gap:18px;align-items:flex-start;margin-bottom:26px}
+.badge{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;background:rgba(94,207,207,.12);color:var(--teal);font:900 1.05rem Inter;flex:0 0 auto}
+h2{font-size:1.65rem;line-height:1.28;margin-bottom:4px}
+.section-head p{color:var(--gray);font-size:.92rem;max-width:780px}
+.tag-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.tag{font-size:.72rem;font-weight:800;padding:4px 10px;border-radius:7px;border:1px solid rgba(94,207,207,.2);background:rgba(94,207,207,.08);color:var(--teal)}
+.tag.mcp{border-color:rgba(240,144,64,.22);background:rgba(240,144,64,.08);color:var(--orange)}
+.tag.skill{border-color:rgba(160,108,255,.22);background:rgba(160,108,255,.08);color:var(--purple)}
+.tag.plugin{border-color:rgba(64,208,128,.22);background:rgba(64,208,128,.08);color:var(--green)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:18px 0 24px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
+.card strong{display:block;margin-bottom:4px}
+.card span,.card p{font-size:.8rem;color:var(--gray)}
+.flow{display:flex;gap:6px;align-items:center;flex-wrap:wrap;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px;margin:18px 0 24px}
+.node{padding:9px 13px;border-radius:10px;font-size:.76rem;font-weight:800;background:rgba(94,207,207,.1);color:var(--teal);border:1px solid rgba(94,207,207,.2)}
+.node.out{background:rgba(64,208,128,.1);color:var(--green);border-color:rgba(64,208,128,.2)}
+.node.mcp{background:rgba(240,144,64,.1);color:var(--orange);border-color:rgba(240,144,64,.2)}
+.arrow{color:var(--muted);font-weight:900}
+.prompt{border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;background:var(--card2);margin:16px 0 22px}
+.prompt-head{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:13px 18px;background:var(--card);border-bottom:1px solid var(--border);font-size:.78rem;font-weight:900;color:var(--teal)}
+.copy{border:1px solid var(--border);border-radius:7px;background:transparent;color:var(--gray);font:700 .72rem Inter;padding:6px 12px;cursor:pointer}
+.copy:hover{color:var(--teal);border-color:var(--teal)}
+.prompt pre{font:500 .82rem/1.75 "JetBrains Mono","Noto Sans Thai",monospace;white-space:pre-wrap;padding:18px;color:var(--white)}
+.placeholder{color:var(--orange);font-style:italic}
+.tip{border:1px solid rgba(160,108,255,.18);background:rgba(160,108,255,.06);border-radius:var(--radius);padding:14px 16px;color:var(--gray);font-size:.84rem;margin:14px 0 22px}
+.tip strong{color:var(--white)}
+.deliverables{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:18px}
+.deliverable{border:1px solid var(--border);border-radius:var(--radius);background:var(--card);padding:14px 15px;font-size:.82rem}
+.deliverable strong{display:block;margin-bottom:2px}
+.deliverable span{color:var(--gray);font-size:.74rem}
+.mobile{display:none;position:fixed;right:18px;bottom:18px;z-index:40;width:52px;height:52px;border:0;border-radius:999px;background:var(--teal);color:#081313;font-size:1.4rem}
+@media(max-width:1050px){.sidebar{display:none}.main{margin-left:0;width:100%}.mobile{display:block}.section,.hero{padding-left:26px;padding-right:26px}.grid{grid-template-columns:1fr 1fr}}
+@media(max-width:720px){h1{font-size:2rem}.grid{grid-template-columns:1fr}.section-head{flex-direction:column}}
+</style>
+</head>
+<body>
+<button class="mobile" onclick="document.querySelector('.sidebar').style.display='block'">≡</button>
+<div class="layout">
+<aside class="sidebar">
+  <div class="logo"><span class="logo-mark">W</span> คู่มือ Whatbot</div>
+  <div class="nav-label">เส้นทางการใช้งาน</div>
+  <ul class="nav" id="nav">
+    <li><a href="#setup" class="active"><span class="num">0</span> ตั้งค่าและบริบท</a></li>
+    <li><a href="#profiles"><span class="num">1</span> Agent Profiles</a></li>
+    <li><a href="#venture"><span class="num">2</span> Venture Builder</a></li>
+    <li><a href="#consult"><span class="num">3</span> Multi-Agent Consulting</a></li>
+    <li><a href="#finance"><span class="num">4</span> Finance & Quant</a></li>
+    <li><a href="#marketing"><span class="num">5</span> Marketing Engine</a></li>
+    <li><a href="#studio"><span class="num">6</span> QUEST Studio</a></li>
+    <li><a href="#automation"><span class="num">7</span> Tools, MCP & Automation</a></li>
+    <li><a href="#delivery"><span class="num">8</span> ส่งมอบและปรับปรุง</a></li>
+  </ul>
+  <div class="nav-label">ภาษา</div>
+  <ul class="nav">
+    <li><a href="playbook.html"><span class="num">EN</span> English</a></li>
+    <li><a href="playbook-th.html"><span class="num">TH</span> ภาษาไทย</a></li>
+  </ul>
+  <div class="nav-label">Playbook อื่น</div>
+  <ul class="nav">
+    <li><a href="playbook-cfa.html"><span class="num">FA</span> CFA Analyst</a></li>
+    <li><a href="playbook-marketer.html"><span class="num">MK</span> Marketer</a></li>
+    <li><a href="playbook-designer.html"><span class="num">DS</span> Designer</a></li>
+    <li><a href="index.html"><span class="num">←</span> Landing Page</a></li>
+  </ul>
+  <div class="cta"><a href="https://a.whatnot.quest/" target="_blank">ทดลองใช้ Whatbot →</a></div>
+</aside>
+
+<main class="main">
+<header class="hero">
+  <div class="eyebrow"><span class="dot"></span> Whatbot A0 Engine v1.7</div>
+  <h1>คู่มือใช้งาน <span class="hl">Whatbot ฉบับสมบูรณ์</span></h1>
+  <p>คู่มือนี้พาคุณใช้ Whatbot รุ่นล่าสุดแบบเป็นขั้นตอน ครอบคลุม Agent Profiles, Memory, Startup Pipelines, Fincept Finance, Marketing Skills, QUEST Studio, Browser Automation, MCP/A2A, Office Artifacts และการแตกสาขาแชทเพื่อทดลองหลายกลยุทธ์</p>
+  <div class="meta">
+    <span class="pill">9 เฟส</span><span class="pill">รองรับ EN / TH / ZH / KO / JA</span><span class="pill">3 Venture Pipelines</span><span class="pill">80+ Finance Modules</span><span class="pill">25 Marketing Skills</span><span class="pill">35+ QUEST Studio Doc Types</span>
+  </div>
+</header>
+
+<section class="section" id="setup">
+  <div class="section-head"><div class="badge">0</div><div><h2>ตั้งค่าและบันทึกบริบทถาวร</h2><p>ก่อนเริ่มงานจริง ให้เลือกโปรไฟล์ที่ถูกต้อง บันทึกข้อมูลที่ควรจำระยะยาว และตรวจสอบ workspace, model, skills และ MCP ให้พร้อม</p></div></div>
+  <div class="tag-row"><span class="tag plugin">Memory</span><span class="tag plugin">Skills</span><span class="tag mcp">MCP/A2A Settings</span><span class="tag plugin">Model Configuration</span></div>
+  <div class="grid">
+    <div class="card"><strong>Agent Profile Selector</strong><span>เปลี่ยนโปรไฟล์ได้หลัง run ปัจจุบันจบ และระบบจะจำโปรไฟล์ในแชทนั้น</span></div>
+    <div class="card"><strong>Memory</strong><span>บันทึกข้อมูลบริษัท โทนแบรนด์ นักลงทุน และ preference ที่ควรใช้ซ้ำในอนาคต</span></div>
+    <div class="card"><strong>Skills</strong><span>Pin skills เพื่อให้ framework เฉพาะทางถูกใส่ใน prompt extras ทุกครั้ง</span></div>
+  </div>
+  <div class="prompt"><div class="prompt-head">Prompt สำหรับตั้งบริบท <button class="copy" onclick="copyPrompt(this)">Copy</button></div>
+    <pre>กรุณาจำข้อมูลนี้เป็นบริบทถาวรของ venture:
+
+Company: <span class="placeholder">[ชื่อบริษัท]</span>
+One-line description: <span class="placeholder">[สร้างอะไร เพื่อใคร]</span>
+Stage: <span class="placeholder">[Idea / MVP / Revenue / Growth / Fundraising]</span>
+Target market: <span class="placeholder">[ICP + ประเทศ/ภูมิภาค]</span>
+Business model: <span class="placeholder">[SaaS / marketplace / services / licensing / hybrid]</span>
+Competitors: <span class="placeholder">[คู่แข่ง 3-5 ราย]</span>
+Current metrics: <span class="placeholder">[MRR, users, pilots, retention, CAC, runway]</span>
+Funding goal: <span class="placeholder">[ต้องการระดมทุนเท่าไร เมื่อไร ใช้เงินทำอะไร]</span>
+Preferred output language: Thai.
+
+ใช้บริบทนี้ในการวิเคราะห์ครั้งต่อไปทุกครั้ง ยกเว้นเมื่อฉันอัปเดตข้อมูลใหม่</pre>
+  </div>
+  <div class="tip"><strong>แนวทางที่ดี:</strong> บันทึกใน Memory เฉพาะข้อมูลที่ค่อนข้างนิ่ง ส่วนสมมติฐานที่อาจเปลี่ยนให้เก็บไว้ในบริบทของแชทแทน</div>
+</section>
+
+<section class="section" id="profiles">
+  <div class="section-head"><div class="badge">1</div><div><h2>เลือก Agent Profile ให้ตรงงาน</h2><p>v1.7 รวมทั้งโปรไฟล์หลักของ Agent Zero และโปรไฟล์เฉพาะของ Whatbot ให้เลือก lead agent ก่อน แล้วค่อย delegate งานเฉพาะทางเมื่อจำเป็น</p></div></div>
+  <div class="grid">
+    <div class="card"><strong>Venture Builder</strong><span>ไอเดีย การ validate, competitive intel, consulting, fundraising, scaling และ exit strategy</span></div>
+    <div class="card"><strong>Financial Analyst</strong><span>งานการเงินระดับ CFA ด้วย Fincept Terminal: valuation, portfolio, derivatives, risk, quant และ backtesting</span></div>
+    <div class="card"><strong>Marketing Strategist</strong><span>25 skills สำหรับ CRO, copy, SEO, ads, email, pricing, launch, referral และ growth engineering</span></div>
+    <div class="card"><strong>Researcher</strong><span>ค้นคว้า วิเคราะห์ข้อมูล อ้างอิงแหล่งที่มา และทำรายงานเป็นระบบ</span></div>
+    <div class="card"><strong>Developer</strong><span>ออกแบบระบบ เขียนโค้ด debug และใช้ code execution</span></div>
+    <div class="card"><strong>Hacker</strong><span>ความปลอดภัย penetration testing การตรวจ risk และ hardening</span></div>
+  </div>
+  <div class="prompt"><div class="prompt-head">Prompt สำหรับเลือกโปรไฟล์ <button class="copy" onclick="copyPrompt(this)">Copy</button></div>
+    <pre>ฉันต้องการทำ workflow สำหรับ venture building แบบครบวงจร
+
+ใช้ Venture Builder เป็น lead profile และ delegate เมื่อจำเป็น:
+- research และ source validation ให้ Researcher
+- financial modeling ให้ Financial Analyst
+- GTM และ messaging ให้ Marketing Strategist
+- technical feasibility ให้ Developer
+- security/risk review ให้ Hacker
+- business document generation ให้ QUEST Studio
+
+รักษาบริบทกลางร่วมกัน และบอกฉันเมื่อควรเปลี่ยน profile เพื่อให้ผลลัพธ์ดีขึ้น</pre>
+  </div>
+</section>
+
+<section class="section" id="venture">
+  <div class="section-head"><div class="badge">2</div><div><h2>รัน Venture Builder Pipeline</h2><p>`venture_pipeline` มี method `venture_build` แบบ 7 stages พร้อม `language` parameter จึงสร้างผลลัพธ์ภาษาไทยได้โดยตรง พร้อม HTML outputs และ download links</p></div></div>
+  <div class="tag-row"><span class="tag">Venture Builder</span><span class="tag skill">venture-build</span><span class="tag plugin">HTML Outputs</span><span class="tag mcp">Search + Images</span></div>
+  <div class="flow"><span class="node">Startup Brief</span><span class="arrow">→</span><span class="node">Market Discovery</span><span class="arrow">→</span><span class="node">Gap Analysis</span><span class="arrow">→</span><span class="node">Value Prop</span><span class="arrow">→</span><span class="node">Risk & Q&A</span><span class="arrow">→</span><span class="node out">HTML Venture Brief</span></div>
+  <div class="grid">
+    <div class="card"><strong>Stages 1-2</strong><span>คู่แข่ง funding, TAM/SAM/SOM, segments, pain points, feature gaps และ blue-ocean opportunities</span></div>
+    <div class="card"><strong>Stages 3-5</strong><span>USP, personas, positioning, SWOT, risk matrix, viability score และ investor Q&A</span></div>
+    <div class="card"><strong>Stages 6-7</strong><span>HTML venture brief และ market landscape แบบ interactive พร้อม positioning matrix</span></div>
+  </div>
+  <div class="prompt"><div class="prompt-head">Prompt สำหรับ Venture Build <button class="copy" onclick="copyPrompt(this)">Copy</button></div>
+    <pre>Run the full Venture Builder pipeline in Thai.
+
+Venture name: <span class="placeholder">[ชื่อบริษัท]</span>
+Description: <span class="placeholder">[อธิบายสินค้า ลูกค้า ปัญหา และ solution 3-5 ประโยค]</span>
+Industry: <span class="placeholder">[อุตสาหกรรม]</span>
+Target market: <span class="placeholder">[ICP + ประเทศ/ภูมิภาค]</span>
+Competitors: <span class="placeholder">[คู่แข่ง 1, คู่แข่ง 2, คู่แข่ง 3]</span>
+Team background: <span class="placeholder">[จุดแข็งของทีม]</span>
+
+Generate:
+1. Market and competitor discovery
+2. Product gap analysis
+3. Value proposition and positioning
+4. SWOT, risk matrix, and viability score
+5. Investor and customer Q&A
+6. HTML venture brief
+7. HTML market landscape
+
+Preserve every download link exactly in your final response.</pre>
+  </div>
+</section>
+
+<section class="section" id="consult">
+  <div class="section-head"><div class="badge">3</div><div><h2>ใช้ Multi-Agent Venture Consulting</h2><p>เลือกได้ว่าจะให้ระบบ route อัตโนมัติด้วย smart mode, เรียก specialist เฉพาะคน หรือรันทั้ง 5 คนพร้อมกันด้วย turbo mode</p></div></div>
+  <div class="tag-row"><span class="tag skill">venture-consultant</span><span class="tag">Market Analyst</span><span class="tag">Business Analyst</span><span class="tag">Competitor Analyst</span><span class="tag">Financial Analyst</span><span class="tag">Pitch Consultant</span></div>
+  <div class="grid">
+    <div class="card"><strong>Smart Mode</strong><span>โหมดแนะนำ ระบบเลือก specialist ที่เกี่ยวข้อง 1-3 คนอัตโนมัติ</span></div>
+    <div class="card"><strong>Turbo Mode</strong><span>รันทั้ง 5 analysts พร้อมกันเพื่อมุมมองครบถ้วน</span></div>
+    <div class="card"><strong>Single-Agent Mode</strong><span>ระบุ `market_analyst`, `business_analyst`, `competitor_analyst`, `financial_analyst` หรือ `pitch_analyst`</span></div>
+  </div>
+  <div class="prompt"><div class="prompt-head">Prompt สำหรับ Turbo Consulting <button class="copy" onclick="copyPrompt(this)">Copy</button></div>
+    <pre>Run a Venture Consultant review in turbo mode and answer in Thai.
+
+Context:
+<span class="placeholder">[สรุปบริษัท สินค้า traction business model ตลาด และ funding goal]</span>
+
+Ask all five specialists to analyze:
+1. Market size, growth, and timing
+2. Business model and pricing
+3. Competitive positioning and moat
+4. Financial projections, unit economics, runway
+5. Pitch narrative, investor objections, and funding readiness
+
+End with a prioritized 30 / 60 / 90 day action plan.</pre>
+  </div>
+  <div class="prompt"><div class="prompt-head">Prompt สำหรับทดสอบมุมมองนักลงทุน <button class="copy" onclick="copyPrompt(this)">Copy</button></div>
+    <pre>ทำหน้าที่เป็นนักลงทุน Series A ที่สงสัยและเข้มงวด
+
+Challenge การวิเคราะห์ล่าสุด:
+- อะไรทำให้คุณปฏิเสธดีลนี้ทันที
+- สมมติฐานใดต้องมี evidence ภายในเดือนนี้
+- metric ใดยังขาดหรืออ่อน
+- milestone ใดทำให้บริษัท fundable มากขึ้นชัดเจนที่สุด
+
+ตอบอย่างตรงไปตรงมา เจาะจง และ quantify risk เท่าที่ทำได้</pre>
+  </div>
+</section>
+
+<section class="section" id="finance">
+  <div class="section-head"><div class="badge">4</div><div><h2>สร้าง Finance, Valuation และ Quant Analysis</h2><p>Financial Analyst ใช้ Fincept Terminal กว่า 80 modules ครอบคลุม valuation, portfolio, derivatives, statements, economics, corporate finance, quant และ backtesting</p></div></div>
+  <div class="tag-row"><span class="tag">Financial Analyst</span><span class="tag plugin">Code Execution</span><span class="tag">Fincept Terminal</span><span class="tag mcp">Charts</span></div>
+  <div class="grid">
+    <div class="card"><strong>Startup Finance</strong><span>3-5 year projections, CAC/LTV, payback, burn, runway, break-even, dilution และ use of funds</span></div>
+    <div class="card"><strong>CFA Analytics</strong><span>DCF, DDM, residual income, comps, WACC, M&A, LBO, statements และ earnings quality</span></div>
+    <div class="card"><strong>Quant & Risk</strong><span>VaR/CVaR, Sharpe/Sortino, drawdown, Monte Carlo, ARIMA, regression, options Greeks และ backtests</span></div>
+  </div>
+  <div class="prompt"><div class="prompt-head">Prompt สำหรับ Financial Model <button class="copy" onclick="copyPrompt(this)">Copy</button></div>
+    <pre>ใช้ Financial Analyst profile หรือ delegate งานนี้ให้ Financial Analyst
+
+Build a 36-month financial model for <span class="placeholder">[Company]</span> and explain in Thai.
+
+Inputs:
+- Current MRR / revenue: <span class="placeholder">[$]</span>
+- Customers / users: <span class="placeholder">[#]</span>
+- Pricing: <span class="placeholder">[$ / plan / ACV]</span>
+- Gross margin: <span class="placeholder">[%]</span>
+- CAC: <span class="placeholder">[$]</span>
+- Monthly burn: <span class="placeholder">[$]</span>
+- Cash on hand: <span class="placeholder">[$]</span>
+- Planned raise: <span class="placeholder">[$]</span>
+
+Produce bear/base/bull scenarios, CAC/LTV, payback, runway, break-even, funding need, valuation range, dilution, and charts suitable for a pitch deck.</pre>
+  </div>
+</section>
+
+<section class="section" id="marketing">
+  <div class="section-head"><div class="badge">5</div><div><h2>เปิดใช้ Marketing Engine</h2><p>Marketing Strategist มี 25 skills สำหรับงาน growth เมื่อต้องการ framework เต็ม ให้สั่งโหลด skill เฉพาะนั้นก่อน</p></div></div>
+  <div class="tag-row"><span class="tag">Marketing Strategist</span><span class="tag skill">25 Skills</span><span class="tag">70+ Psychology Models</span><span class="tag mcp">Research + Visuals</span></div>
+  <div class="grid">
+    <div class="card"><strong>CRO</strong><span>page-cro, signup-flow-cro, onboarding-cro, form-cro, popup-cro, paywall-upgrade-cro</span></div>
+    <div class="card"><strong>Content & SEO</strong><span>copywriting, copy-editing, email-sequence, social-content, content-strategy, seo-audit, programmatic-seo, schema-markup</span></div>
+    <div class="card"><strong>Growth</strong><span>paid-ads, launch-strategy, analytics-tracking, ab-test-setup, free-tool-strategy, referral-program, pricing-strategy</span></div>
+  </div>
+  <div class="prompt"><div class="prompt-head">Prompt สำหรับ GTM Engine <button class="copy" onclick="copyPrompt(this)">Copy</button></div>
+    <pre>Act as Marketing Strategist and build a full GTM engine. Answer in Thai.
+
+Product: <span class="placeholder">[สินค้า]</span>
+ICP: <span class="placeholder">[buyer, user, segment]</span>
+Stage: <span class="placeholder">[Prelaunch / launched / scaling]</span>
+Budget: <span class="placeholder">[$]</span>
+Timeline: <span class="placeholder">[สัปดาห์/เดือน]</span>
+Primary conversion goal: <span class="placeholder">[Demo / trial / purchase / waitlist]</span>
+
+Cover:
+1. Positioning and messaging
+2. Landing page CRO and copy
+3. Channel prioritization
+4. SEO and content plan
+5. Paid/social plan
+6. 7-email lifecycle sequence
+7. Analytics and A/B test plan
+8. First 90-day execution calendar</pre>
+  </div>
+</section>
+
+<section class="section" id="studio">
+  <div class="section-head"><div class="badge">6</div><div><h2>สร้างเอกสารธุรกิจด้วย QUEST Studio</h2><p>QUEST Studio คือ document engine ใหม่ รองรับ 35+ doc types, PPTX/PDF export, 18 styles, theme wizard, style extraction, slide editing และ quality tiers ตั้งแต่ draft ถึง hideft_max</p></div></div>
+  <div class="tag-row"><span class="tag plugin">QUEST Studio</span><span class="tag mcp">Nano Banana Pro</span><span class="tag">Claude Art Direction</span><span class="tag plugin">Slide Editor</span></div>
+  <div class="grid">
+    <div class="card"><strong>Decks</strong><span>pitch_deck, investor_update, board_deck, sales_deck, wizstory_deck, product_demo, training_deck, social_carousel</span></div>
+    <div class="card"><strong>PDF Docs</strong><span>one_pager, tearsheet, executive_summary, fact_sheet, proposal, case_study, white_paper, infographic</span></div>
+    <div class="card"><strong>Specialized Docs</strong><span>equity_research_note, portfolio_review, valuation_memo, growth_audit, campaign_brief, SEO strategy, content calendar</span></div>
+  </div>
+  <div class="prompt"><div class="prompt-head">Prompt สำหรับ Investor Deck <button class="copy" onclick="copyPrompt(this)">Copy</button></div>
+    <pre>Use QUEST Studio `generate_doc`.
+
+Document type: pitch_deck
+Quality: hideft
+Audience: Seed / Series A investors
+Topic:
+<span class="placeholder">[สรุปบริษัท product traction market business model raise amount และ use of funds]</span>
+
+Style direction:
+<span class="placeholder">[สีแบรนด์ mood reference และข้อจำกัดด้านภาพ]</span>
+
+Create a 12-slide investor deck with problem, why now, solution, product, market, traction, business model, GTM, competition, team, financials, and ask. Use Thai language where appropriate. Save the editable file and preserve the PPTX download link.</pre>
+  </div>
+  <div class="tip"><strong>เลือก quality:</strong> ใช้ `draft` เพื่อร่างเร็ว, `standard` สำหรับงานทั่วไป, `hideft` สำหรับนักลงทุน/ลูกค้า และ `hideft_max` สำหรับงาน final ระดับ board หรือ fundraising</div>
+</section>
+
+<section class="section" id="automation">
+  <div class="section-head"><div class="badge">7</div><div><h2>ใช้ Tools, MCP และ Automation</h2><p>v1.7 มี plugin platform, external MCP client, A0 Connector, browser tools, office artifacts, communication integrations และ code execution</p></div></div>
+  <div class="tag-row"><span class="tag plugin">Browser</span><span class="tag plugin">Browser Agent</span><span class="tag plugin">Code Execution</span><span class="tag plugin">LibreOffice</span><span class="tag mcp">External MCP</span><span class="tag plugin">WhatsApp / Telegram / Email / LINE / WeChat / Kakao</span></div>
+  <div class="grid">
+    <div class="card"><strong>Browser Work</strong><span>เปิดเว็บ ตรวจ content กรอกฟอร์ม screenshot scrape tabs และ workflow ที่ต้องใช้ browser</span></div>
+    <div class="card"><strong>MCP/A2A</strong><span>เพิ่ม Chrome DevTools, Playwright, n8n, Gmail, SQLite, VSCode หรือ remote HTTP MCP ผ่าน Settings</span></div>
+    <div class="card"><strong>Office Artifacts</strong><span>สร้าง MD, ODT, ODS, ODP, DOCX, XLSX และ PPTX พร้อม download/canvas actions</span></div>
+    <div class="card"><strong>Code Execution</strong><span>รัน terminal, Python และ Node.js สำหรับ analysis, prototype และ data work</span></div>
+    <div class="card"><strong>Plugin Management</strong><span>install, validate, scan, discover และ configure plugins ผ่าน Settings</span></div>
+    <div class="card"><strong>Comms Channels</strong><span>ใช้งานผ่าน WhatsApp, Telegram, email, LINE, WeChat และ Kakao เมื่อ configure แล้ว</span></div>
+  </div>
+  <div class="prompt"><div class="prompt-head">Prompt สำหรับ MCP Setup <button class="copy" onclick="copyPrompt(this)">Copy</button></div>
+    <pre>ช่วยฉัน configure external MCP server
+
+Goal: <span class="placeholder">[browser automation / Gmail / database / n8n workflow / IDE workflow]</span>
+Server type: <span class="placeholder">[local command / remote HTTP]</span>
+Environment: <span class="placeholder">[Docker / local Windows / VPS]</span>
+
+ให้ JSON config, environment variables ที่ต้องใช้, ตำแหน่งที่ต้อง paste ใน Settings → MCP/A2A → External MCP Servers และวิธี verify หลังคลิก Apply</pre>
+  </div>
+</section>
+
+<section class="section" id="delivery">
+  <div class="section-head"><div class="badge">8</div><div><h2>ส่งมอบ แตกสาขา และปรับปรุง</h2><p>ใช้ workspace features ล่าสุดเพื่อเปลี่ยน run แรกให้เป็น venture package ที่ใช้ซ้ำได้ แล้ว branch แชทเพื่อทดสอบกลยุทธ์อื่นโดยไม่ทำให้ thread หลักเสีย</p></div></div>
+  <div class="tag-row"><span class="tag plugin">Chat Branching</span><span class="tag plugin">Chat Compaction</span><span class="tag plugin">Time Travel</span><span class="tag plugin">Document Preview</span><span class="tag plugin">Infection Check</span></div>
+  <div class="deliverables">
+    <div class="deliverable"><strong>Investor Package</strong><span>Pitch deck, one-pager, executive summary, financial model, investor Q&A</span></div>
+    <div class="deliverable"><strong>Operating Package</strong><span>GTM calendar, landing copy, email sequence, analytics plan, product roadmap</span></div>
+    <div class="deliverable"><strong>Sales Package</strong><span>Sales deck, case study, battle cards, objection scripts, comparison chart</span></div>
+    <div class="deliverable"><strong>Governance Package</strong><span>Board deck, investor update, risk review, security checklist, data room outline</span></div>
+  </div>
+  <div class="prompt"><div class="prompt-head">Prompt สำหรับ Final Package <button class="copy" onclick="copyPrompt(this)">Copy</button></div>
+    <pre>รวบรวมทุกอย่างจากแชทนี้เป็น final venture operating package ภาษาไทย
+
+Include:
+1. Executive summary
+2. Venture brief
+3. Market and competitive analysis
+4. Financial model summary
+5. GTM strategy
+6. Investor deck checklist
+7. Open risks and assumptions
+8. 30 / 60 / 90 day execution plan
+9. File/download link inventory
+
+Then suggest three useful chat branches:
+- conservative financial case
+- aggressive growth case
+- skeptical investor diligence case</pre>
+  </div>
+  <div class="tip"><strong>Iteration loop:</strong> แตก branch เพื่อทดลองทางเลือก, compact chat เมื่อบริบทนิ่ง, ใช้ time travel เพื่อดู diff และเก็บ final artifacts ใน document preview หรือ QUEST Studio เพื่อ export</div>
+</section>
+</main>
+</div>
+<script>
+function copyPrompt(btn){
+  const text=btn.closest('.prompt').querySelector('pre').innerText;
+  navigator.clipboard.writeText(text).then(()=>{const old=btn.textContent;btn.textContent='Copied';setTimeout(()=>btn.textContent=old,1400)});
+}
+const sections=document.querySelectorAll('.section');
+const links=document.querySelectorAll('#nav a');
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+entry.target.id));
+    }
+  });
+},{rootMargin:'-20% 0px -60% 0px'});
+sections.forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>
